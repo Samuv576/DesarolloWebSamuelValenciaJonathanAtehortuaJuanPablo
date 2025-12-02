@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-V1Application<V1>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.Patinaje.V1.V1Application",
+            "projectName": "V1",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

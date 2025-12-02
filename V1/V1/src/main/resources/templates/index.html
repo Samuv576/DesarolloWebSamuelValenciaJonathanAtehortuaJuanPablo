@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Página de Patinaje</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Opcional: estilo extra -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0d6efd, #6610f2);
+      color: white;
+      padding: 5rem 1rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-weight: 700;
+    }
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">PatinajePro</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse"
+        id="navbarNav"
+      >
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#inicio">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#servicios">Servicios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#galeria">Galería</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contacto">Contacto</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="container">
+      <h1 class="mb-3">Escuela de Patinaje</h1>
+      <p class="mb-4">
+        Entrena, mejora tu técnica y vive la velocidad sobre ruedas. Clases para
+        niños, jóvenes y adultos en todos los niveles.
+      </p>
+      <a href="#contacto" class="btn btn-light btn-lg">
+        ¡Quiero inscribirme!
+      </a>
+    </div>
+  </section>
+
+  <!-- SECCIÓN SERVICIOS -->
+  <section id="servicios" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Nuestros Servicios</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Clases para Principiantes</h5>
+              <p class="card-text">
+                Aprende desde cero: equilibrio, frenado y las bases de la técnica
+                de patinaje de manera segura.
+              </p>
+              <a href="#contacto" class="btn btn-primary btn-sm">Más info</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Entrenamiento Avanzado</h5>
+              <p class="card-text">
+                Mejora tu velocidad, postura y rendimiento. Ideal para
+                patinadores con experiencia y deportistas competitivos.
+              </p>
+              <a href="#contacto" class="btn btn-primary btn-sm">Más info</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Clases Personalizadas</h5>
+              <p class="card-text">
+                Entrenamientos 1 a 1 adaptados a tus objetivos: recreativos,
+                fitness o alto rendimiento.
+              </p>
+              <a href="#contacto" class="btn btn-primary btn-sm">Más info</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN GALERÍA -->
+  <section id="galeria" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Galería</h2>
+      <div class="row g-3">
+        <div class="col-6 col-md-3">
+          <img
+            src="https://via.placeholder.com/300x200?text=Patinaje+1"
+            class="img-fluid rounded"
+            alt="Patinaje 1"
+          />
+        </div>
+        <div class="col-6 col-md-3">
+          <img
+            src="https://via.placeholder.com/300x200?text=Patinaje+2"
+            class="img-fluid rounded"
+            alt="Patinaje 2"
+          />
+        </div>
+        <div class="col-6 col-md-3">
+          <img
+            src="https://via.placeholder.com/300x200?text=Patinaje+3"
+            class="img-fluid rounded"
+            alt="Patinaje 3"
+          />
+        </div>
+        <div class="col-6 col-md-3">
+          <img
+            src="https://via.placeholder.com/300x200?text=Patinaje+4"
+            class="img-fluid rounded"
+            alt="Patinaje 4"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN CONTACTO -->
+  <section id="contacto" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Contacto</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <form class="card p-4 shadow-sm">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre completo</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nombre"
+                placeholder="Tu nombre"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="tunombre@correo.com"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="mensaje" class="form-label">Mensaje</label>
+              <textarea
+                class="form-control"
+                id="mensaje"
+                rows="4"
+                placeholder="Cuéntanos en qué estás interesado/a..."
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+              Enviar mensaje
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+      <small>© 2025 Escuela de Patinaje. Todos los derechos reservados.</small>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  ></script>
+</body>
+</html>
