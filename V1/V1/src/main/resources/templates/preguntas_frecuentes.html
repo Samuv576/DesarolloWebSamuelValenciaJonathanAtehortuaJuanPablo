@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Preguntas Frecuentes | Patín Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    
+    <header class="text-center mb-5 pb-3">
+        <h1 class="display-4 fw-bold text-uppercase">Preguntas Frecuentes</h1>
+        <p class="lead text-muted">Aquí resolvemos tus dudas más comunes sobre patines y clases de patinaje.</p>
+    </header>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            
+            <div class="accordion" id="faqAccordion">
+                
+                <h2 class="h4 fw-bold mt-4 mb-3 text-primary">🛒 Tienda y Patines</h2>
+                
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            ¿Cómo sé qué talla y tipo de patín debo elegir?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted small">
+                            La talla de los patines debe coincidir con tu talla de calzado regular. El **tipo** depende del uso: los patines *Fitness* o *Recreativos* son ideales para principiantes y paseos largos. Los patines *Urbanos* o *Freestyle* son para maniobras y entornos urbanos. Siempre prioriza un buen ajuste del botín para evitar lesiones.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            ¿Los patines tienen garantía?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted small">
+                            Sí. Todos nuestros patines y componentes tienen una **garantía de 90 días** contra defectos de fabricación. Ten en cuenta que el desgaste normal de las ruedas, frenos o rodamientos por el uso intensivo no está cubierto. La garantía no aplica a daños causados por caídas o mantenimiento inadecuado.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            ¿Puedo personalizar mis patines (ruedas, rodamientos, chasis)?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted small">
+                            ¡Claro! Nuestra sección de accesorios permite comprar ruedas, rodamientos y chasis por separado. Esto es común para el patinaje *agresivo* o *freestyle*. Si adquieres los componentes con nosotros, ofrecemos el **servicio de instalación gratuita** en nuestra tienda física.
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="h4 fw-bold mt-5 mb-3 text-primary">👨‍🏫 Clases de Patinaje</h2>
+                
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            ¿Necesito mi propio equipo para tomar las clases?
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted small">
+                            Para las clases de **Iniciación**, proporcionamos patines (en línea o *quads*) y equipo de seguridad completo. Para los niveles **Dominio** y **Experto**, se recomienda encarecidamente que traigas tu propio equipo para familiarizarte con él y tener el mejor rendimiento.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            ¿Cuál es la política de cancelación de clases?
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted small">
+                            Las cancelaciones deben realizarse con **24 horas de antelación** para recibir un crédito para reagendar la sesión. Las cancelaciones tardías o no asistencia no son reembolsables. Puedes cancelar a través de nuestro portal de reservas.
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 class="h4 fw-bold mt-5 mb-3 text-primary">📦 Envíos y Devoluciones</h2>
+                
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            ¿Cuánto tiempo tarda en llegar mi pedido de patines?
+                        </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted small">
+                            Los envíos estándar toman de **3 a 5 días hábiles**. Ofrecemos envíos *express* de 24 a 48 horas con un costo adicional. Recibirás un número de seguimiento por correo electrónico una vez que el pedido haya sido enviado.
+                        </div>
+                    </div>
+                </div>
+
+            </div> <p class="text-center mt-5 text-muted">¿No encuentras la respuesta? <a href="#" class="text-dark fw-bold text-decoration-none">Contáctanos directamente aquí.</a></p>
+
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

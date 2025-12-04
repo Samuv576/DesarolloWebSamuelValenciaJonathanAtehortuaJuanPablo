@@ -9,8 +9,9 @@ public class Inscripcion {
     private final Long estudianteId;
     private final Long claseId;
     private final LocalDateTime fecha;
+    private final EstadoInscripcion estado;
 
-    public Inscripcion(Long id, Long estudianteId, Long claseId, LocalDateTime fecha) {
+    public Inscripcion(Long id, Long estudianteId, Long claseId, LocalDateTime fecha, EstadoInscripcion estado) {
         if (estudianteId == null || claseId == null) {
             throw new DomainException("Inscripcion requiere estudiante y clase");
         }
@@ -18,6 +19,7 @@ public class Inscripcion {
         this.estudianteId = estudianteId;
         this.claseId = claseId;
         this.fecha = fecha == null ? LocalDateTime.now() : fecha;
+        this.estado = estado == null ? EstadoInscripcion.ACTIVA : estado;
     }
 
     public Long getId() {
@@ -34,5 +36,9 @@ public class Inscripcion {
 
     public LocalDateTime getFecha() {
         return fecha;
+    }
+
+    public EstadoInscripcion getEstado() {
+        return estado;
     }
 }

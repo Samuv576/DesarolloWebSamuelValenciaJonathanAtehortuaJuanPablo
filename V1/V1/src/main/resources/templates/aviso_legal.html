@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Aviso Legal | Patín Pro', ~{::content})">
+<th:block th:fragment="content">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 bg-white text-dark p-4 rounded-3 shadow-sm">
+                <h1 class="mb-4">Aviso Legal</h1>
+                <p>Este sitio web es propiedad de Patín Pro. La información detallada del aviso legal y datos de contacto de la empresa se publicará aquí.</p>
+                <p class="mb-0 text-muted">Si necesitas esta información de inmediato, contáctanos desde la página de <a th:href="@{/contactar}">contacto</a>.</p>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

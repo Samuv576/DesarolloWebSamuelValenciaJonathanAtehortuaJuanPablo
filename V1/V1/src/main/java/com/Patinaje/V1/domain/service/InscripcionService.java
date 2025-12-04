@@ -15,29 +15,29 @@ public class InscripcionService {
      * Valida reglas de inscripcion: nivel coincide, hay cupo, no moroso, no inscrito previo.
      */
     public void validarInscripcion(Estudiante estudiante,
-                                   Clase clase,
-                                   int inscritosActuales,
-                                   boolean yaInscrito,
-                                   List<Pago> pagosDelEstudiante) {
-        if (estudiante == null || clase == null) {
-            throw new DomainException("Inscripcion requiere estudiante y clase");
-        }
-        if (yaInscrito) {
-            throw new DomainException("El estudiante ya esta inscrito en esta clase");
-        }
-        if (inscritosActuales >= clase.getCupo()) {
-            throw new DomainException("La clase ya esta llena");
-        }
-        if (!estudiante.getNivel().equals(clase.getNivel())) {
-            throw new DomainException("El estudiante solo puede inscribirse en clases de su nivel");
-        }
-        if (esMoroso(pagosDelEstudiante)) {
-            throw new DomainException("El estudiante esta moroso y no puede inscribirse");
-        }
+        Clase clase,
+        int inscritosActuales,
+        boolean yaInscrito,
+        List<Pago> pagosDelEstudiante) {
+            if (estudiante == null || clase == null) {
+                throw new DomainException("Inscripcion requiere estudiante y clase");
+            }
+            if (yaInscrito) {
+                throw new DomainException("El estudiante ya esta inscrito en esta clase");
+            }
+            if (inscritosActuales >= clase.getCupo()) {
+                throw new DomainException("La clase ya esta llena");
+            }
+            if (!estudiante.getNivel().equals(clase.getNivel())) {
+                throw new DomainException("El estudiante solo puede inscribirse en clases de su nivel");
+            }
+            if (esMoroso(pagosDelEstudiante)) {
+                throw new DomainException("El estudiante esta moroso y no puede inscribirse");
+            }
     }
 
     public Inscripcion crearInscripcion(Long estudianteId, Long claseId) {
-        return new Inscripcion(null, estudianteId, claseId, null);
+        return new Inscripcion(null, estudianteId, claseId, null, null);
     }
 
     private boolean esMoroso(List<Pago> pagos) {

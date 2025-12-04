@@ -1,0 +1,82 @@
+<nav th:fragment="app-header" class="navbar navbar-expand-lg navbar-light py-3 sticky-top header-premium" id="mainNavbar">
+    <div class="container">
+        
+        <a class="navbar-brand me-5" th:href="@{/}">
+            <img th:src="@{/images/logo.png}" 
+                 alt="Roller Speed Logo" 
+                 class="site-logo">
+            <span class="d-none d-lg-inline fw-bold text-dark fs-4">Roller Speed</span> 
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-uppercase fw-bold" th:href="@{/institucional#mision}">Misión</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-uppercase fw-bold" th:href="@{/institucional#vision}">Visión</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-uppercase fw-bold" th:href="@{/institucional#valores}">Valores</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-uppercase fw-bold" th:href="@{/institucional#servicios}">Servicios</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-uppercase fw-bold" th:href="@{/institucional#eventos}">Eventos</a>
+                </li>
+
+                <li class="nav-item dropdown mx-2" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle text-uppercase fw-bold" href="#" id="portalDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Portal de Usuarios
+                    </a>
+                    <ul class="dropdown-menu border-0 shadow-lg" aria-labelledby="portalDropdown">
+                        <li sec:authorize="hasRole('ALUMNO')"><h6 class="dropdown-header text-primary fw-bold">Alumno</h6></li>
+                        <li sec:authorize="hasRole('ALUMNO')"><a class="dropdown-item" th:href="@{/estudiante/dashboard}">Dashboard</a></li>
+                        <li sec:authorize="hasRole('ALUMNO')"><a class="dropdown-item" th:href="@{/estudiante/horario}">Mi Horario</a></li>
+                        <li sec:authorize="hasRole('ALUMNO')"><a class="dropdown-item" th:href="@{/estudiante/pagos}">Pagos</a></li>
+                        <li sec:authorize="hasRole('ALUMNO')"><a class="dropdown-item" th:href="@{/estudiante/progreso}">Progreso</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        
+                        <li sec:authorize="hasRole('INSTRUCTOR')"><h6 class="dropdown-header text-success fw-bold">Instructor</h6></li>
+                        <li sec:authorize="hasRole('INSTRUCTOR')"><a class="dropdown-item" th:href="@{/instructor/clases}">Gestión de Clases</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        
+                        <li sec:authorize="hasRole('ADMINISTRADOR')"><h6 class="dropdown-header text-danger fw-bold">Administrador</h6></li>
+                        <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/estudiantes}">Gestión Estudiantes</a></li>
+                        <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/horarios}">Gestión Horarios</a></li>
+                        <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/pagos}">Gestión Pagos</a></li>
+                    </ul>
+                </li>                
+            </ul>
+            
+            <div class="d-flex align-items-center">
+                <a href="#" class="nav-link text-dark mx-2 d-none d-lg-block">
+                    <i class="bi bi-search fs-5"></i>
+                </a>
+                
+                <a th:href="@{/login}" class="nav-link text-dark mx-2 d-none d-lg-block" sec:authorize="isAnonymous()">
+                    <i class="bi bi-person fs-5"></i> Ingresar
+                </a>
+                <div class="d-none d-lg-flex align-items-center" sec:authorize="isAuthenticated()">
+                    <span class="text-dark small me-2" sec:authentication="name"></span>
+                    <form th:action="@{/logout}" method="post" class="mb-0">
+                        <button type="submit" class="btn btn-link text-decoration-none text-dark p-0">Salir</button>
+                    </form>
+                </div>
+
+                <a th:href="@{/cart}" class="btn btn-sm btn-primary ms-3">
+                    <i class="bi bi-cart"></i> Carrito
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

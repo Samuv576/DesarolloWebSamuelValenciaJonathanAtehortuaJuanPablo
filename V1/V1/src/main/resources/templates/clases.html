@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Clases de Skate | Skate Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    <h1 class="display-4 fw-bold mb-3 text-center text-uppercase">Nuestros Cursos de Skate</h1>
+    <p class="lead text-center text-muted mb-5">Aprende con instructores certificados y lleva tu habilidad al siguiente nivel, sin importar tu experiencia.</p>
+    
+    <section class="row text-center mb-5 pb-4 border-bottom">
+        <div class="col-md-4">
+            <i class="bi bi-person-check fs-1 text-primary"></i>
+            <h5 class="fw-bold mt-3">Instructores Expertos</h5>
+            <p class="small text-muted">Aprende de profesionales con años de experiencia en la calle y en parques.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="bi bi-shield-lock fs-1 text-primary"></i>
+            <h5 class="fw-bold mt-3">Seguridad Garantizada</h5>
+            <p class="small text-muted">Foco total en técnicas de caída y uso correcto del equipo de protección.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="bi bi-graph-up-arrow fs-1 text-primary"></i>
+            <h5 class="fw-bold mt-3">Rápida Progresión</h5>
+            <p class="small text-muted">Planes de estudio estructurados para que domines nuevos trucos en tiempo récord.</p>
+        </div>
+    </section>
+
+    <section class="row row-cols-1 row-cols-md-3 g-4">
+        
+        <div class="col">
+            <div class="card h-100 shadow course-card text-center">
+                <div class="card-header bg-light py-3 border-bottom-0">
+                    <h4 class="fw-bold mb-0 text-uppercase">Iniciación</h4>
+                </div>
+                <div class="card-body">
+                    <div class="price-badge bg-light rounded-pill px-3 py-1 mb-3 d-inline-block">
+                        <span class="fs-2 fw-bold text-dark">$80</span><span class="small text-muted">/mes</span>
+                    </div>
+                    <p class="card-text text-muted mb-4">Perfecto si nunca te has subido a una tabla. Aprende el balance y los giros básicos.</p>
+                    <ul class="list-unstyled text-start small mb-4">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> 4 sesiones mensuales (1h c/u)</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Equilibrio y posición correcta</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Técnicas de frenado seguro</li>
+                        <li class="mb-2 text-muted"><i class="bi bi-dash-circle me-2"></i> Trucos avanzados</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary w-100 fw-bold">Inscribirse</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-lg course-card text-center border-primary border-3">
+                <div class="card-header bg-primary py-3 border-bottom-0">
+                    <h4 class="fw-bold mb-0 text-white text-uppercase">Dominio</h4>
+                </div>
+                <div class="card-body">
+                    <span class="badge bg-warning text-dark mb-3">Más Popular</span>
+                    <div class="price-badge bg-light rounded-pill px-3 py-1 mb-3 d-inline-block">
+                        <span class="fs-2 fw-bold text-dark">$120</span><span class="small text-muted">/mes</span>
+                    </div>
+                    <p class="card-text text-muted mb-4">Domina el Olllie y el Pop Shove-it. Ideal si ya patinas con soltura.</p>
+                    <ul class="list-unstyled text-start small mb-4">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> 8 sesiones mensuales (1h c/u)</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Introducción a rampas y rails</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Trucos de plano (Ollie, Shove-it)</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Análisis de video personalizado</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary w-100 fw-bold">Inscribirse</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow course-card text-center">
+                <div class="card-header bg-light py-3 border-bottom-0">
+                    <h4 class="fw-bold mb-0 text-uppercase">Experto</h4>
+                </div>
+                <div class="card-body">
+                    <div class="price-badge bg-light rounded-pill px-3 py-1 mb-3 d-inline-block">
+                        <span class="fs-2 fw-bold text-dark">$180</span><span class="small text-muted">/mes</span>
+                    </div>
+                    <p class="card-text text-muted mb-4">Enfocado en trucos complejos y preparación para competencias.</p>
+                    <ul class="list-unstyled text-start small mb-4">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> 12 sesiones mensuales (1.5h c/u)</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Flips y rotaciones (Kickflip, Heelflip)</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Uso de bowls y halfpipes</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Sesiones de práctica libre supervisada</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary w-100 fw-bold">Inscribirse</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="mt-5 p-5 text-center bg-light rounded-3 shadow-sm">
+        <h2 class="fw-bold mb-3">¿Tienes Preguntas?</h2>
+        <p class="lead text-muted">Contáctanos para una clase de prueba gratuita y encuentra tu nivel ideal.</p>
+        <a href="/contactar" class="btn btn-lg btn-outline-dark mt-3">Contáctanos Ahora</a>
+    </section>
+
+</div>
+</th:block>
+</html>

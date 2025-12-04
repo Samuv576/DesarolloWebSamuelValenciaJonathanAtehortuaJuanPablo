@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Checkout | Roller Speed', ~{::content})">
+<th:block th:fragment="content">
+    <div class="container my-5">
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-5">
+                <div class="card card-light shadow-lg">
+                    <div class="card-header bg-dark text-white fw-bold">
+                        Resumen de compra
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${summary.items.size() == 0}">
+                            <p class="text-muted mb-0">No hay productos en el carrito.</p>
+                        </div>
+                        <div th:if="${summary.items.size() > 0}">
+                            <div class="mb-3" style="max-height: 200px; overflow-y: auto;">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                                        th:each="item : ${summary.items}">
+                                        <span>
+                                            <span class="fw-semibold" th:text="${item.product.nombre}">Producto</span>
+                                            <small class="text-muted d-block" th:text="'x'+${item.quantity}"></small>
+                                        </span>
+                                        <span class="fw-bold" th:text="${#numbers.formatDecimal(item.product.precio * item.quantity,1,'POINT',0,'COMMA')}">$0</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="d-flex justify-content-between small mb-1">
+                                <span>Subtotal</span>
+                                <span th:text="${#numbers.formatDecimal(summary.subtotal,1,'POINT',0,'COMMA')}">$0</span>
+                            </div>
+                            <div class="d-flex justify-content-between small mb-1">
+                                <span>Impuestos (19%)</span>
+                                <span th:text="${#numbers.formatDecimal(summary.impuestos,1,'POINT',0,'COMMA')}">$0</span>
+                            </div>
+                            <div class="d-flex justify-content-between small mb-1">
+                                <span>Envío</span>
+                                <span th:text="${#numbers.formatDecimal(summary.envio,1,'POINT',0,'COMMA')}">$0</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold">
+                                <span>Total</span>
+                                <span th:text="${#numbers.formatDecimal(summary.total,1,'POINT',0,'COMMA')}">$0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card card-light shadow-lg">
+                    <div class="card-header bg-primary text-white fw-bold">Datos de pago</div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Nombre completo</label>
+                                <input type="text" class="form-control" placeholder="Tu nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Correo</label>
+                                <input type="email" class="form-control" placeholder="correo@ejemplo.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Dirección de envío</label>
+                                <input type="text" class="form-control" placeholder="Calle 123, Ciudad" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Método de pago</label>
+                                <select class="form-select" required>
+                                    <option value="" disabled selected>Selecciona</option>
+                                    <option>Tarjeta</option>
+                                    <option>Transferencia</option>
+                                    <option>Efectivo</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Confirmar pedido</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

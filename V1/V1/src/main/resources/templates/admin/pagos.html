@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Gestión Financiera | Admin | Patín Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    
+    <header class="text-center mb-5 pb-3">
+        <h1 class="display-4 fw-bold text-uppercase">Gestión Financiera y Pagos</h1>
+        <p class="lead text-muted">Registro y corrección de pagos mensuales. Única interfaz para gestionar la morosidad (Regla 6).</p>
+    </header>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white fw-bold h5 py-3 d-flex justify-content-between">
+                    Estado de Pagos de Estudiantes
+                    <button class="btn btn-warning btn-sm fw-bold text-dark" data-bs-toggle="modal" data-bs-target="#pagoModal">
+                        <i class="bi bi-cash-stack me-1"></i> Registrar Nuevo Pago
+                    </button>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover mb-0 align-middle">
+                            <thead>
+                                <tr class="table-light">
+                                    <th scope="col" class="fw-bold">ID</th>
+                                    <th scope="col" class="fw-bold">Estudiante</th>
+                                    <th scope="col" class="fw-bold">Último Pago (Mes)</th>
+                                    <th scope="col" class="fw-bold">Fecha Límite</th>
+                                    <th scope="col" class="fw-bold">ESTADO (Regla 6)</th>
+                                    <th scope="col" class="fw-bold">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>101</td>
+                                    <td>Daniel Soto</td>
+                                    <td>Diciembre 2025</td>
+                                    <td>10/12/2025</td>
+                                    <td><span class="badge bg-success py-2">AL DÍA</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info text-white me-2" data-bs-toggle="modal" data-bs-target="#historialModal"><i class="bi bi-file-text"></i> Historial</button>
+                                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#corregirModal"><i class="bi bi-pencil-square"></i> Corregir</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>102</td>
+                                    <td>María López</td>
+                                    <td>Octubre 2025</td>
+                                    <td>01/11/2025</td>
+                                    <td><span class="badge bg-danger py-2">MOROSO</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info text-white me-2" data-bs-toggle="modal" data-bs-target="#historialModal"><i class="bi bi-file-text"></i> Historial</button>
+                                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#corregirModal"><i class="bi bi-pencil-square"></i> Corregir</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-info mt-4 small">
+                <i class="bi bi-lightbulb-fill me-2"></i> **Proceso de Morosidad:** El sistema marca a un estudiante como **MOROSO** si pasan 30 días después de la fecha límite sin un pago registrado (Regla 6).
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="pagoModal" tabindex="-1" aria-labelledby="pagoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="pagoModalLabel">Registrar Pago Mensual</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="pagoForm">
+                    <p class="small text-muted mb-3">Registre un nuevo pago para el mes actual.</p>
+                    
+                    <div class="mb-3">
+                        <label for="estudianteSelect" class="form-label small fw-semibold">Estudiante *</label>
+                        <select class="form-select" id="estudianteSelect" required>
+                            <option value="" disabled selected>Selecciona un estudiante</option>
+                            <option>101 - Daniel Soto (Al Día)</option>
+                            <option>102 - María López (Moroso)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="mesPago" class="form-label small fw-semibold">Mes que Paga *</label>
+                            <input type="text" class="form-control" id="mesPago" placeholder="Ej: Diciembre 2025" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="monto" class="form-label small fw-semibold">Monto ($) *</label>
+                            <input type="number" class="form-control" id="monto" value="80000" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="fechaRegistro" class="form-label small fw-semibold">Fecha de Registro *</label>
+                            <input type="date" class="form-control" id="fechaRegistro" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" form="pagoForm" class="btn btn-warning fw-bold text-dark">Confirmar Registro</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="corregirModal" tabindex="-1" aria-labelledby="corregirModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="corregirModalLabel"><i class="bi bi-exclamation-octagon-fill me-2"></i> CORREGIR Pago (Función Administrativa)</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-danger fw-semibold">Usted está a punto de modificar un registro de pago. Esta acción es exclusiva del Administrador (Regla 6).</p>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Pago a Corregir:</label>
+                        <p class="form-control-plaintext">Mensualidad **Octubre 2025** de **María López** (Fecha: 05/10/2025)</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nuevaFecha" class="form-label small fw-semibold">Nueva Fecha de Pago</label>
+                        <input type="date" class="form-control" id="nuevaFecha">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nuevoMonto" class="form-label small fw-semibold">Nuevo Monto ($)</label>
+                        <input type="number" class="form-control" id="nuevoMonto" placeholder="Ej: 80000">
+                    </div>
+                    <div class="mb-3">
+                        <label for="observacionCorregir" class="form-label small fw-semibold">Observación de la Corrección *</label>
+                        <textarea class="form-control" id="observacionCorregir" rows="2" required></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="cambiarEstado">
+                        <label class="form-check-label small" for="cambiarEstado">
+                            Marcar como "AL DÍA" después de la corrección.
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger fw-bold">Aplicar Corrección</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="historialModal" tabindex="-1" aria-labelledby="historialModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="historialModalLabel">Historial de Pagos de Daniel Soto</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr><th>Mes</th><th>Fecha de Registro</th><th>Monto</th><th>Registrado Por</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Diciembre 2025</td><td>01/12/2025</td><td>$80.000</td><td>Admin Laura G.</td></tr>
+                        <tr><td>Noviembre 2025</td><td>05/11/2025</td><td>$80.000</td><td>Admin Laura G.</td></tr>
+                        <tr><td>Octubre 2025</td><td>02/10/2025</td><td>$80.000</td><td>Admin Laura G.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

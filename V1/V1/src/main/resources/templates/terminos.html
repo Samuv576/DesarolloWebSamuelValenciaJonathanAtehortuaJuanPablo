@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Términos y Condiciones | Patín Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    
+    <header class="text-center mb-5 pb-3">
+        <h1 class="display-4 fw-bold text-uppercase">Términos y Condiciones</h1>
+        <p class="lead text-muted">Reglas de uso del sitio web y de los servicios de la Escuela de Patinaje Patín Pro.</p>
+    </header>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10 policy-text bg-white text-dark p-4 rounded-3 shadow-sm">
+
+            <h2 class="fw-bold mb-3 text-primary">1. Aceptación de los Términos</h2>
+            <p>Al acceder o utilizar el sitio web y/o inscribirse en cualquiera de las clases o comprar productos de <strong>PATÍN PRO</strong>, usted acepta estar sujeto a estos Términos y Condiciones. Si no está de acuerdo con alguna parte de los términos, no debe utilizar nuestro servicio.</p>
+
+            <h2 class="fw-bold mb-3 text-primary">2. Cuentas de Usuario y Roles del Sistema</h2>
+            
+            <h5 class="fw-semibold mt-4">2.1. Cuentas de Estudiantes</h5>
+            <p>El registro de estudiantes requiere la provisión de información veraz y obligatoria (Nombre, Identificación Única, Edad, Contacto de Emergencia, etc., según la Regla 2.1). Los estudiantes tienen acceso a ver su <strong>horario, estado de pago y observaciones de progreso</strong>. No están autorizados a ver ni editar información de otros usuarios (Regla 1.3).</p>
+
+            <h5 class="fw-semibold mt-4">2.2. Restricciones de Cuentas</h5>
+            <p>El uso del sistema por parte de Instructores y Administradores está sujeto a las <strong>restricciones de seguridad</strong> establecidas en la Regla 8. Cualquier intento de acceso o modificación de datos fuera del rol asignado (Regla 1.2, 1.1) resultará en la suspensión de la cuenta.</p>
+
+            <h2 class="fw-bold mb-3 text-primary">3. Reglas de la Escuela de Patinaje</h2>
+            
+            <h5 class="fw-semibold mt-4">3.1. Inscripciones y Niveles (Regla 4)</h5>
+            <p>Las inscripciones están limitadas por el nivel de patinaje asignado al estudiante. <strong>Un estudiante solo puede inscribirse a clases de su mismo nivel.</strong> Las inscripciones están sujetas al cupo máximo de la clase; no se puede inscribir si el cupo está lleno (Regla 4).</p>
+
+            <h5 class="fw-semibold mt-4">3.2. Pagos y Morosidad (Regla 6)</h5>
+            <p>Los servicios se pagan mediante <strong>mensualidades</strong>. Un estudiante será marcado automáticamente como <strong>"Moroso"</strong> si el pago no se registra dentro de los 30 días posteriores a la fecha de vencimiento. Los estudiantes morosos <strong>no podrán inscribirse a nuevas clases</strong> ni obtener certificados de progreso. El Administrador es la única figura autorizada para corregir registros de pago.</p>
+
+            <h5 class="fw-semibold mt-4">3.3. Asistencia y Progreso (Regla 5 y 7)</h5>
+            <p>El registro de asistencia y las observaciones de progreso son responsabilidad exclusiva del Instructor. El estudiante acepta que <strong>no se pueden modificar observaciones de progreso pasadas</strong> (Regla 7).</p>
+
+            <h2 class="fw-bold mb-3 text-primary">4. Tienda y Adquisición de Productos</h2>
+            <p>Toda compra de productos (patines, accesorios, equipamiento) a través de este sitio web está sujeta a nuestra política de garantía de 90 días contra defectos de fabricación. El desgaste normal por el uso no está cubierto. Patín Pro no se hace responsable por el uso inadecuado del equipo.</p>
+            
+            <h2 class="fw-bold mb-3 text-primary">5. Modificaciones de los Términos</h2>
+            <p>Nos reservamos el derecho de modificar estos Términos y Condiciones en cualquier momento. Le notificaremos cualquier cambio publicando los nuevos términos en esta página. Es su responsabilidad revisar periódicamente estos Términos y Condiciones para cualquier cambio.</p>
+
+            <p class="mt-5 text-center small text-muted">Para cualquier consulta sobre estos Términos, por favor, póngase en contacto a través de la página de Contacto.</p>
+
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

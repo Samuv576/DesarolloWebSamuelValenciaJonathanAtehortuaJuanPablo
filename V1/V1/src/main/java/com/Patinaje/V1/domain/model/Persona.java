@@ -1,5 +1,6 @@
 package com.Patinaje.V1.domain.model;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -12,19 +13,31 @@ public class Persona {
     private final Long id;
     private final String nombre;
     private final String identificacion;
-    private final int edad;
+    private final LocalDate fechaNacimiento;
+    private final Genero genero;
     private final String telefono;
     private final String correo;
     private final String direccion;
 
-    public Persona(Long id, String nombre, String identificacion, int edad, String telefono, String correo, String direccion) {
+    public Persona(Long id,
+                   String nombre,
+                   String identificacion,
+                   LocalDate fechaNacimiento,
+                   Genero genero,
+                   String telefono,
+                   String correo,
+                   String direccion) {
         this.id = id;
         this.nombre = requireNonBlank(nombre, "El nombre es obligatorio");
         this.identificacion = requireNonBlank(identificacion, "La identificacion es obligatoria");
-        if (edad < 0) {
-            throw new DomainException("La edad no puede ser negativa");
+        if (fechaNacimiento == null || fechaNacimiento.isAfter(LocalDate.now())) {
+            throw new DomainException("La fecha de nacimiento es obligatoria y debe ser pasada");
         }
-        this.edad = edad;
+        this.fechaNacimiento = fechaNacimiento;
+        if (genero == null) {
+            throw new DomainException("El genero es obligatorio");
+        }
+        this.genero = genero;
         if (!PHONE_PATTERN.matcher(telefono).matches()) {
             throw new DomainException("El telefono debe tener 10 digitos");
         }
@@ -55,8 +68,12 @@ public class Persona {
         return identificacion;
     }
 
-    public int getEdad() {
-        return edad;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public Genero getGenero() {
+        return genero;
     }
 
     public String getTelefono() {

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Mi Horario | Patín Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    
+    <header class="text-center mb-5 pb-3">
+        <h1 class="display-4 fw-bold text-uppercase">Mi Horario de Clases</h1>
+        <p class="lead text-muted">A continuación, encontrarás el detalle de las clases en las que estás actualmente inscrito.</p>
+        <span class="badge bg-primary fs-6 py-2 px-3 mt-2">Nivel Asignado: INTERMEDIO</span>
+    </header>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white fw-bold h5 py-3">
+                    Clases Activas
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr class="table-light">
+                                    <th scope="col" class="fw-bold">Clase</th>
+                                    <th scope="col" class="fw-bold">Día</th>
+                                    <th scope="col" class="fw-bold">Hora</th>
+                                    <th scope="col" class="fw-bold">Instructor</th>
+                                    <th scope="col" class="fw-bold">Cupo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Técnica Freestyle: Slalom Básico</td>
+                                    <td>**Lunes**</td>
+                                    <td>18:00 - 19:00</td>
+                                    <td>Lucas Martín</td>
+                                    <td>15 / 20</td>
+                                </tr>
+                                <tr>
+                                    <td>Control de Velocidad y Frenado Avanzado</td>
+                                    <td>**Miércoles**</td>
+                                    <td>19:00 - 20:00</td>
+                                    <td>Daniel Soto</td>
+                                    <td>18 / 25</td>
+                                </tr>
+                                <tr>
+                                    <td>Coreografía Artística (Quads)</td>
+                                    <td>**Sábado**</td>
+                                    <td>10:00 - 11:00</td>
+                                    <td>Sofía Ríos</td>
+                                    <td>12 / 15</td>
+                                </tr>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4 p-4 bg-light rounded-3">
+                <p class="lead mb-2">¿Quieres agregar más clases o cambiar tu horario?</p>
+                <a href="/contacto" class="btn btn-outline-dark fw-bold">Contactar a Administración</a>
+            </div>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

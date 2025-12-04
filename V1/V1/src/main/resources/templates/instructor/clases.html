@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Mis Clases | Patín Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    
+    <header class="text-center mb-5 pb-3">
+        <h1 class="display-4 fw-bold text-uppercase">Gestión de Clases Asignadas</h1>
+        <p class="lead text-muted">Bienvenido, **Lucas Martín**. Aquí puedes registrar la asistencia y el progreso de tus estudiantes.</p>
+    </header>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h2 class="h4 fw-bold mb-3 text-primary">Mi Horario Semanal</h2>
+            
+            <div class="list-group shadow-lg">
+                
+                <a href="#asistenciaModal" data-bs-toggle="modal" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-center instructor-class-item">
+                    <div>
+                        <h5 class="mb-1 fw-bold">Técnica Freestyle: Slalom Básico</h5>
+                        <p class="mb-1 small text-muted">
+                            <i class="bi bi-calendar-event me-2"></i> **Lunes** | 18:00 - 19:00 | Nivel: Intermedio
+                        </p>
+                        <span class="badge bg-secondary">Cupo: 15/20</span>
+                    </div>
+                    <button class="btn btn-primary fw-semibold btn-sm">
+                        <i class="bi bi-journal-check me-1"></i> Registrar Hoy
+                    </button>
+                </a>
+                
+                <a href="#asistenciaModal" data-bs-toggle="modal" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-center instructor-class-item">
+                    <div>
+                        <h5 class="mb-1 fw-bold">Control de Velocidad y Frenado Avanzado</h5>
+                        <p class="mb-1 small text-muted">
+                            <i class="bi bi-calendar-event me-2"></i> **Miércoles** | 19:00 - 20:00 | Nivel: Avanzado
+                        </p>
+                        <span class="badge bg-secondary">Cupo: 18/25</span>
+                    </div>
+                    <button class="btn btn-primary fw-semibold btn-sm">
+                        <i class="bi bi-journal-check me-1"></i> Registrar Hoy
+                    </button>
+                </a>
+                
+                <a href="#" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-center instructor-class-item bg-light">
+                    <div>
+                        <h5 class="mb-1 fw-bold text-muted">Clase Libre / Particulares</h5>
+                        <p class="mb-1 small text-muted">
+                            <i class="bi bi-calendar-event me-2"></i> **Viernes** | 17:00 - 18:00 | No requiere registro de asistencia
+                        </p>
+                    </div>
+                    </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="asistenciaModal" tabindex="-1" aria-labelledby="asistenciaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="asistenciaModalLabel">Registro: Técnica Freestyle (Lunes 03/12/2025)</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="registroAsistenciaForm">
+                    <p class="small text-muted mb-4">Solo puede registrarse asistencia el **mismo día de la clase** (Regla 5). El registro de observaciones es acumulativo (Regla 7).</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped align-middle">
+                            <thead>
+                                <tr class="table-light text-center">
+                                    <th style="width: 5%;">#</th>
+                                    <th>Estudiante</th>
+                                    <th style="width: 15%;">Asistencia (Regla 5)</th>
+                                    <th style="width: 20%;">Control (Obs. Regla 7)</th>
+                                    <th style="width: 20%;">Velocidad</th>
+                                    <th style="width: 20%;">Equilibrio/Frenado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Daniel Soto (ID: 101)</td>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" name="asistencia_101" checked> Asistió
+                                    </td>
+                                    <td><input type="text" class="form-control form-control-sm" name="obs_control_101" placeholder="Ej: Postura firme"></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="obs_velocidad_101" placeholder="Ej: Buen ritmo"></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="obs_eqfren_101" placeholder="Ej: Freno en T lento"></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>María López (ID: 102)</td>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" name="asistencia_102"> Asistió
+                                    </td>
+                                    <td><input type="text" class="form-control form-control-sm" name="obs_control_102" placeholder="Ej: Postura firme"></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="obs_velocidad_102" placeholder="Ej: Buen ritmo"></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="obs_eqfren_102" placeholder="Ej: Freno en T lento"></td>
+                                </tr>
+                                </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" form="registroAsistenciaForm" class="btn btn-primary fw-bold">Guardar Registro Diario</button>
+            </div>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

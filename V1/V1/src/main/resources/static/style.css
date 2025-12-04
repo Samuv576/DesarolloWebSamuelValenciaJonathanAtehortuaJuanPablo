@@ -1,0 +1,434 @@
+/* =================================================================== */
+/* 1. ESTILOS GLOBALES Y TIPOGRAFIA BASE                              */
+/* =================================================================== */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    /* Fondo Oscuro con Gradiente (cuerpo principal - PROHIBIDO TOCAR) */
+    background: #232526;
+    background: -webkit-linear-gradient(to right, #414345, #232526);
+    background: linear-gradient(to right, #414345, #232526);
+    color: #ffffff; /* Texto claro por defecto */
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* Fuente para Titulos */
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+}
+
+/* Otros ajustes de tipografia */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
+
+
+/* =================================================================== */
+/* 2. BOOTSTRAP OVERRIDES Y COLORES DE MARCA                          */
+/* =================================================================== */
+
+/* Colores de Marca y Componentes Primarios (Naranja/Acento) */
+.btn-primary, .bg-primary {
+    background-color: #FF5722 !important; /* Naranja Fuerte */
+    border-color: #FF5722 !important;
+    color: white !important;
+}
+
+.btn-primary {
+    background-color: #FF5722;
+    border-color: #FF5722;
+}
+
+.btn-primary:hover {
+    background-color: #e54d19;
+    border-color: #e54d19;
+}
+
+.btn-primary:hover {
+    background-color: #e54d19 !important;
+    border-color: #e54d19 !important;
+}
+
+/* Colores de Fondo Secundarios y Oscuros */
+.bg-dark {
+    background-color: #2C3E50 !important;
+}
+
+.bg-secondary {
+    background-color: #2C3E50 !important;
+}
+
+.bg-primary-dark {
+    background-color: #0f172a !important;
+}
+
+/* Legibilidad en fondos claros */
+.bg-light,
+.bg-white {
+    color: #212529 !important; /* Texto oscuro sobre fondos claros */
+}
+
+.bg-light .text-muted,
+.bg-white .text-muted {
+    color: #6c757d !important; /* Muted legible en fondos claros */
+}
+
+/* Utilidades de color de texto */
+.text-primary {
+    color: #FF5722 !important;
+}
+
+.text-dark {
+    color: #212529 !important;
+}
+
+.text-muted {
+    color: rgba(255, 255, 255, 0.72) !important; /* Muted legible sobre fondo oscuro */
+}
+
+/* Boton de Registro (Alternativo al primario) */
+.btn-dark {
+    background-color: #1A1A1A !important;
+    border-color: #1A1A1A !important;
+}
+
+.btn-dark:hover {
+    background-color: #333333 !important;
+    border-color: #333333 !important;
+}
+
+
+/* =================================================================== */
+/* 3. MODULOS DE NAVEGACION Y ESTRUCTURA (DIFERENCIACION CLAVE)       */
+/* =================================================================== */
+
+/* 3.1. NAVBAR (Header) */
+.header-premium{
+    background-color: rgba(90, 90, 90, 0.7);
+}
+
+.site-logo {
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+}
+
+.fixed-top {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border-bottom: 2px solid #FF5722;
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #FF5722 !important;
+}
+
+.header-scrolled {
+    background-color: #000000 !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.header-scrolled .navbar-brand,
+.header-scrolled .nav-link,
+.header-scrolled .nav-link .bi {
+    color: #ffffff !important;
+    text-shadow: none;
+}
+
+/* 3.2. FOOTER */
+.footer-premium {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-color: rgb(26, 26, 26);
+    color: #ECF0F1;
+}
+
+.footer-link {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.5) !important;
+    transition: color 0.3s;
+}
+
+.footer-link:hover {
+    color: #FF8A65 !important;
+}
+
+hr {
+    opacity: 0.1;
+}
+
+.social-icons a {
+    color: rgba(255, 255, 255, 0.5) !important;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #FF8A65 !important;
+}
+
+.form-control-sm {
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.form-control-sm::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* =================================================================== */
+/* 4. MODULOS DE COMPONENTES REUTILIZABLES                            */
+/* =================================================================== */
+
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+    background-color: #2A323A; /* Gris Oscuro/Pizarra */
+    color: #ECF0F1 !important; /* Texto claro */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card.bg-white,
+.card.card-light {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.badge.bg-primary {
+    background-color: #FF5722 !important;
+    color: white !important;
+}
+
+.badge.bg-secondary {
+    background-color: #e0e0e0 !important;
+    color: #1A1A1A !important;
+    font-weight: 600;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+
+/* =================================================================== */
+/* 5. MODULOS ESPECIFICOS DE PAGINA                                   */
+/* =================================================================== */
+
+/* 5.1. CARRUSEL (Index) */
+.carousel-item {
+    height: 600px;
+    background: #777;
+    color: white;
+}
+
+.carousel-img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    filter: brightness(60%);
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 8px;
+    bottom: 20%;
+}
+
+
+/* 5.2. TIENDA/PRODUCTOS */
+.product-card {
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+.product-img-container {
+    height: 250px;
+    overflow: hidden;
+    background-color: #1A1A1A;
+}
+
+.product-img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+}
+
+.sidebar-filtros {
+    padding: 15px;
+    top: 20px;
+    background-color: #1A1A1A;
+    border-radius: 10px;
+    color: #ECF0F1;
+}
+
+.sidebar-filtros a {
+    color: #ECF0F1;
+}
+
+.sidebar-filtros a:hover {
+    color: #FF8A65 !important;
+}
+
+.page-item.active .page-link {
+    background-color: #1A1A1A !important;
+    border-color: #1A1A1A !important;
+    color: white;
+}
+
+.page-link {
+    color: #1A1A1A;
+}
+
+
+/* 5.3. CLASES / PRECIOS */
+.course-card {
+    border: 1px solid #333;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.course-card:not(.border-primary) .card-body:hover {
+    transform: translateY(-5px);
+}
+
+.border-primary {
+    border-color: #FF8A65 !important;
+}
+
+.card-header.bg-primary {
+    background-color: #1A1A1A !important;
+}
+
+.price-badge {
+    background-color: #2A323A !important;
+}
+
+
+/* 5.4. CONTACTO */
+.form-card {
+    border: 1px solid #333;
+    background-color: #2A323A !important;
+}
+
+.map-container {
+    height: 250px;
+    width: 100%;
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ECF0F1;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+.map-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* 5.5. INSTRUCTORES */
+.instructor-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 10px;
+}
+
+.instructor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+.instructor-photo {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 4px solid #FF8A65;
+    padding: 3px;
+}
+
+.instructor-card .text-primary {
+    color: #FF5722 !important;
+}
+
+
+/* 5.6. LOGIN/REGISTRO */
+.login-card {
+    border-radius: 12px;
+    background-color: #2A323A !important;
+}
+
+.nav-pills .nav-link {
+    color: #ECF0F1;
+    background-color: #1A1A1A;
+    border-radius: 8px;
+    margin: 0 5px;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: white !important;
+    background-color: #FF5722;
+}
+
+.login-container {
+    width: 100%;
+}
+
+
+/* 5.7. DASHBOARD Y PROGRESO DE ESTUDIANTE */
+.status-card {
+    transition: transform 0.3s;
+    border-left: 5px solid #FF8A65;
+    background-color: #1A1A1A;
+    color: #ECF0F1;
+}
+
+.timeline-item {
+    padding-bottom: 10px;
+    border-color: #FF5722 !important;
+}
+
+.border-secondary {
+    border-color: #6c757d !important;
+}

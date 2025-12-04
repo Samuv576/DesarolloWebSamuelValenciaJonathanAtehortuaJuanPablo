@@ -1,0 +1,73 @@
+<footer th:fragment="app-footer" class="bg-primary-dark text-white py-5 footer-premium">
+    <div class="container">
+        
+        <div class="row mb-5">
+            
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h5 class="fw-bold mb-3 text-uppercase">🔥 Patinaje Pro</h5>
+                <p class="text-white-50 small">Suscríbete para trucos, noticias y descuentos exclusivos.</p>
+                <form class="d-flex mt-3">
+                    <input type="email" class="form-control me-2 form-control-sm" placeholder="Tu email" required>
+                    <button class="btn btn-primary btn-sm" type="submit">Enviar</button>
+                </form>
+            </div>
+
+            <div class="col-md-2 mb-4 mb-md-0">
+                <h5 class="fw-bold mb-3 text-uppercase">Navegar</h5>
+                <ul class="list-unstyled">
+                    <li><a th:href="@{/tienda}" class="text-decoration-none text-white-50 footer-link">Tienda</a></li>
+                    <li><a th:href="@{/clases}" class="text-decoration-none text-white-50 footer-link">Clases</a></li>
+                    <li><a th:href="@{/sobre-nosotros}" class="text-decoration-none text-white-50 footer-link">Sobre nosotros</a></li>
+                    <li><a th:href="@{/comunidad}" class="text-decoration-none text-white-50 footer-link">Comunidad</a></li>
+                    <li><a th:href="@{/instructores}" class="text-decoration-none text-white-50 footer-link">Instructores</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h5 class="fw-bold mb-3 text-uppercase">Soporte</h5>
+                <ul class="list-unstyled">
+                    <li><a th:href="@{/preguntas-frecuentes}" class="text-decoration-none text-white-50 footer-link">Preguntas Frecuentes</a></li>
+                    <li><a th:href="@{/contactar}" class="text-decoration-none text-white-50 footer-link">Contactar</a></li>
+                    <li><a th:href="@{/politica-privacidad}" class="text-decoration-none text-white-50 footer-link">Política de Privacidad</a></li>
+                    <li><a th:href="@{/terminos}" class="text-decoration-none text-white-50 footer-link">Términos y Condiciones</a></li>
+                    <li><a th:href="@{/aviso_legal}" class="text-decoration-none text-white-50 footer-link">Aviso Legal</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-2 mb-4 mb-md-0">
+                <h5 class="fw-bold mb-3 text-uppercase text-warning">Acceso Rápido</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-1"><span class="fw-bold">Estudiante</span></li>
+                    <li><a th:href="@{/estudiante/dashboard}" class="text-decoration-none text-white-50 footer-link">Dashboard</a></li>
+                    <li><a th:href="@{/estudiante/horario}" class="text-decoration-none text-white-50 footer-link">Horario</a></li>
+                    <li><a th:href="@{/estudiante/pagos}" class="text-decoration-none text-white-50 footer-link">Pagos</a></li>
+                    <li><a th:href="@{/estudiante/progreso}" class="text-decoration-none text-white-50 footer-link">Progreso</a></li>
+                    <li class="mb-1 mt-2"><span class="fw-bold">Instructor</span></li>
+                    <li><a th:href="@{/instructor/clases}" class="text-decoration-none text-white-50 footer-link">Clases Instructor</a></li>
+                    <li class="mb-1 mt-2"><span class="fw-bold">Admin</span></li>
+                    <li><a th:href="@{/admin/estudiantes}" class="text-decoration-none text-white-50 footer-link">Estudiantes</a></li>
+                    <li><a th:href="@{/admin/horarios}" class="text-decoration-none text-white-50 footer-link">Horarios</a></li>
+                    <li><a th:href="@{/admin/pagos}" class="text-decoration-none text-white-50 footer-link">Pagos</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-2">
+                <h5 class="fw-bold mb-3 text-uppercase">Síguenos</h5>
+                <div class="d-flex social-icons fs-4">
+                    <a href="#" class="text-decoration-none text-white-50 me-3"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-decoration-none text-white-50 me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-decoration-none text-white-50"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="text-white-50"> 
+        
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <p class="mb-0 text-white-50 small">&copy; 2025 PATINAJE PRO. Todos los derechos reservados.</p>
+            </div>
+        </div>
+        
+    </div>
+</footer>

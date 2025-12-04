@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Sobre Nosotros | Skate Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    
+    <header class="text-center mb-5 pb-3 header-about">
+        <h1 class="display-3 fw-bolder text-uppercase mb-4">NUESTRA HISTORIA EN EL ASFALTO</h1>
+        
+        <blockquote class="blockquote fst-italic text-dark mb-4">
+            "Deslízate hacia tu mejor versión."
+        </blockquote>
+
+        <p class="lead text-muted mb-1">Tu viaje empieza sobre ruedas.</p>
+        
+        <p class="lead fw-semibold text-primary">Domina el ritmo. Domina la pista.</p>
+    </header>
+
+    <section class="row align-items-center mb-5 py-4">
+        <div class="col-md-6 order-md-1">
+            <h2 class="fw-bold mb-3 text-primary">Nuestra Misión</h2>
+            <p class="lead">Hacer accesible la pasión por el skate, ofreciendo equipo de la más alta calidad y enseñanza segura y efectiva para todos los niveles.</p>
+            <p class="text-muted">Skate Pro nació en 2018 de la necesidad de tener un lugar donde los skaters pudieran encontrar productos duraderos y recibir guía experta. Empezamos en un pequeño garaje y hoy somos el principal punto de encuentro de la ciudad.</p>
+        </div>
+        <div class="col-md-6 order-md-2 mb-4 mb-md-0">
+            <img src="https://placehold.co/800x500/1A1A1A/ffffff?text=Nuestra+Mision" class="img-fluid rounded shadow-lg" alt="Skater saltando en un parque de skate al atardecer">
+        </div>
+    </section>
+
+    <section class="py-5 mb-5">
+        <h2 class="text-center fw-bold mb-5 text-uppercase">Nuestros Hitos</h2>
+        
+        <div class="row text-center">
+            
+            <div class="col-md-3">
+                <i class="bi bi-clock-history fs-1 text-primary mb-3"></i>
+                <h5 class="fw-bold">2018: El Inicio</h5>
+                <p class="small text-muted">Fundación de Skate Pro como tienda online especializada y centro local de clases.</p>
+            </div>
+            
+            <div class="col-md-3">
+                <i class="bi bi-shop fs-1 text-primary mb-3"></i>
+                <h5 class="fw-bold">2020: Tienda Física</h5>
+                <p class="small text-muted">Abrimos nuestra primera tienda física y centro de entrenamiento, duplicando la capacidad de clases.</p>
+            </div>
+            
+            <div class="col-md-3">
+                <i class="bi bi-award fs-1 text-primary mb-3"></i>
+                <h5 class="fw-bold">2022: Programa PRO</h5>
+                <p class="small text-muted">Lanzamos nuestro programa de instructores certificados y patrocinios a jóvenes talentos locales.</p>
+            </div>
+            
+            <div class="col-md-3">
+                <i class="bi bi-globe2 fs-1 text-primary mb-3"></i>
+                <h5 class="fw-bold">Hoy: Cobertura Nacional</h5>
+                <p class="small text-muted">Ampliamos la distribución a todo el país y ofrecemos clases virtuales y presenciales.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-center py-5 bg-light rounded-3 shadow-sm mb-5">
+        <h2 class="fw-bold mb-5 text-uppercase">Valores que nos Mueven</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <i class="bi bi-gem fs-1 text-primary mb-3"></i>
+                <h5 class="fw-bold">Calidad y Durabilidad</h5>
+                <p class="small text-muted px-3">Solo vendemos productos que usaríamos nosotros mismos. La seguridad y el rendimiento son prioridad.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="bi bi-people-fill fs-1 text-primary mb-3"></i>
+                <h5 class="fw-bold">Fomentar la Comunidad</h5>
+                <p class="small text-muted px-3">Organizamos eventos, competiciones y sesiones gratuitas para mantener viva la cultura.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="bi bi-lightning-charge-fill fs-1 text-primary mb-3"></i>
+                <h5 class="fw-bold">Pasión e Innovación</h5>
+                <p class="small text-muted px-3">Buscamos las últimas tendencias y tecnologías para el equipo de skate.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="row align-items-center mb-5 py-4">
+        <div class="col-md-6 order-md-2">
+            <h2 class="fw-bold mb-3">Nuestra Cultura Skater</h2>
+            <p class="lead">Entendemos que el skate es más que un deporte; es <strong>libertad, creatividad y resiliencia</strong>.</p>
+            <ul class="list-unstyled text-muted">
+                <li class="mb-2"><i class="bi bi-check-lg text-primary me-2"></i> <strong>Inclusión:</strong> Todos son bienvenidos, sin importar edad o nivel.</li>
+                <li class="mb-2"><i class="bi bi-check-lg text-primary me-2"></i> <strong>Persistencia:</strong> Enseñamos a levantarse después de cada caída, dentro y fuera de la pista.</li>
+                <li class="mb-2"><i class="bi bi-check-lg text-primary me-2"></i> <strong>Respeto al Entorno:</strong> Promovemos el uso responsable de los espacios urbanos.</li>
+            </ul>
+        </div>
+        <div class="col-md-6 order-md-1 mb-4 mb-md-0">
+            <img src="https://placehold.co/800x500/1A1A1A/ffffff?text=Cultura+Skater" class="img-fluid rounded shadow-lg" alt="Skate park con gente de diferentes edades patinando">
+        </div>
+    </section>
+
+    <section class="row align-items-center py-4">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <img src="https://placehold.co/800x500/1A1A1A/ffffff?text=Nuestro+Equipo" class="img-fluid rounded shadow-lg" alt="Grupo de skaters reunidos en la tienda Skate Pro">
+        </div>
+        <div class="col-md-6">
+            <h2 class="fw-bold mb-3">Únete a la Familia</h2>
+            <p class="text-muted">Detrás de cada venta y cada clase, hay un equipo dedicado a la cultura skater. Somos instructores, técnicos y apasionados.</p>
+            <p class="text-muted">Te invitamos a visitarnos, conocer a nuestro equipo y experimentar la diferencia Skate Pro.</p>
+            
+            <a th:href="@{/tienda}" class="btn btn-primary btn-lg mt-3">Visita Nuestra Tienda Física</a>
+        </div>
+    </section>
+
+</div>
+</th:block>
+</html>

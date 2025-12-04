@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Tienda | Skate Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    <h1 class="display-4 fw-bold mb-5 text-center text-uppercase">Explora Nuestro Catálogo</h1>
+    
+    <div class="row">
+        
+        <div class="col-lg-3 d-none d-lg-block">
+            <aside class="sticky-top sidebar-filtros">
+                <h4 class="mb-3 fw-bold">Filtrar Productos</h4>
+                
+                <div class="mb-4 p-3 border rounded shadow-sm">
+                    <h6 class="fw-bold text-uppercase text-primary">Categoría</h6>
+                    <ul class="list-unstyled small mt-2">
+                        <li><a href="#" class="text-decoration-none d-block py-1">Tablas Completas (12)</a></li>
+                        <li><a href="#" class="text-decoration-none d-block py-1">Decks (8)</a></li>
+                        <li><a href="#" class="text-decoration-none d-block py-1">Ruedas y Rodamientos (15)</a></li>
+                        <li><a href="#" class="text-decoration-none d-block py-1">Protección (5)</a></li>
+                    </ul>
+                </div>
+
+                <div class="mb-4 p-3 border rounded shadow-sm">
+                    <h6 class="fw-bold text-uppercase text-primary">Precio</h6>
+                    <input type="range" class="form-range" min="10" max="500" step="10" id="priceRange">
+                    <div class="d-flex justify-content-between small">
+                        <span>$10</span>
+                        <span>$500</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-outline-secondary w-100 btn-sm">Limpiar Filtros</button>
+
+            </aside>
+        </div>
+        
+        <div class="col-lg-9">
+            <div class="row mb-4 align-items-center">
+                <div class="col-md-6">
+                    <p class="text-muted small mb-0">Mostrando 1-12 de 40 resultados</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <select class="form-select form-select-sm d-inline-block w-auto">
+                        <option selected>Ordenar por Novedad</option>
+                        <option value="1">Precio: Bajo a Alto</option>
+                        <option value="2">Precio: Alto a Bajo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm product-card">
+                        <div class="product-img-container">
+                            <img th:src="@{/images/canariam.png}" src="/images/canariam.png" class="card-img-top product-img" alt="Patines Canariam Onix">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Canariam Onix</h5>
+                            <p class="card-text text-muted small mb-1">Categoría: Patines</p>
+                            <p class="fs-5 fw-bold text-primary">$219.99</p>
+                            <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
+                                <input type="hidden" name="productId" value="1"/>
+                                <input type="hidden" name="qty" value="1"/>
+                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
+                                <a th:href="@{/producto}" class="btn btn-sm btn-outline-primary">Ver</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm product-card">
+                        <div class="product-img-container">
+                            <img th:src="@{/images/ruedas.png}" src="/images/ruedas.png" class="card-img-top product-img" alt="Ruedas 80mm">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Ruedas X4 80mm</h5>
+                            <p class="card-text text-muted small mb-1">Categoría: Ruedas</p>
+                            <p class="fs-5 fw-bold text-primary">$45.00</p>
+                            <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
+                                <input type="hidden" name="productId" value="2"/>
+                                <input type="hidden" name="qty" value="1"/>
+                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
+                                <a th:href="@{/producto}" class="btn btn-sm btn-outline-primary">Ver</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm product-card">
+                        <div class="product-img-container">
+                            <img th:src="@{/images/proteccion.png}" src="/images/proteccion.png" class="card-img-top product-img" alt="Kit de Protección">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Kit Protección Pro</h5>
+                            <p class="card-text text-muted small mb-1">Categoría: Seguridad</p>
+                            <p class="fs-5 fw-bold text-primary">$59.99</p>
+                            <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
+                                <input type="hidden" name="productId" value="3"/>
+                                <input type="hidden" name="qty" value="1"/>
+                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
+                                <a th:href="@{/producto}" class="btn btn-sm btn-outline-primary">Ver</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm product-card">
+                        <div class="product-img-container">
+                            <img th:src="@{/images/dominio.png}" src="/images/dominio.png" class="card-img-top product-img" alt="Curso Dominio">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Curso Dominio</h5>
+                            <p class="card-text text-muted small mb-1">Categoría: Clases</p>
+                            <p class="fs-5 fw-bold text-primary">$120.00</p>
+                            <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
+                                <input type="hidden" name="productId" value="4"/>
+                                <input type="hidden" name="qty" value="1"/>
+                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
+                                <a th:href="@{/clases}" class="btn btn-sm btn-outline-primary">Ver</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm product-card">
+                        <div class="product-img-container">
+                            <img th:src="@{/images/comunidad.png}" src="/images/comunidad.png" class="card-img-top product-img" alt="Membresía Comunidad">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Membresía Comunidad</h5>
+                            <p class="card-text text-muted small mb-1">Categoría: Comunidad</p>
+                            <p class="fs-5 fw-bold text-primary">$39.99</p>
+                            <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
+                                <input type="hidden" name="productId" value="5"/>
+                                <input type="hidden" name="qty" value="1"/>
+                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
+                                <a th:href="@{/comunidad}" class="btn btn-sm btn-outline-primary">Ver</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm product-card">
+                        <div class="product-img-container">
+                            <img th:src="@{/images/calles.png}" src="/images/calles.png" class="card-img-top product-img" alt="Deck Urbano">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Deck Urbano</h5>
+                            <p class="card-text text-muted small mb-1">Categoría: Decks</p>
+                            <p class="fs-5 fw-bold text-primary">$89.99</p>
+                            <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
+                                <input type="hidden" name="productId" value="6"/>
+                                <input type="hidden" name="qty" value="1"/>
+                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
+                                <a th:href="@{/producto}" class="btn btn-sm btn-outline-primary">Ver</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <nav class="mt-5">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

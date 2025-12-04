@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Nuestros Instructores | Patín Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    
+    <header class="text-center mb-5 pb-3">
+        <h1 class="display-4 fw-bold text-uppercase">Nuestro Equipo de Expertos</h1>
+        <p class="lead text-muted">Aprende de los mejores. Todos nuestros instructores están certificados en seguridad y técnicas de patinaje.</p>
+    </header>
+
+    <section class="row text-center mb-5 py-4 bg-light rounded-3 shadow-sm">
+        <div class="col-md-4">
+            <i class="bi bi-patch-check fs-1 text-primary mb-3"></i>
+            <h5 class="fw-bold">Certificación Técnica</h5>
+            <p class="small text-muted">Certificados por la Federación Nacional de Patinaje.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="bi bi-heart-pulse fs-1 text-primary mb-3"></i>
+            <h5 class="fw-bold">Primeros Auxilios</h5>
+            <p class="small text-muted">Formación avanzada en seguridad y respuesta a emergencias.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="bi bi-clock-history fs-1 text-primary mb-3"></i>
+            <h5 class="fw-bold">Experiencia Comprobada</h5>
+            <p class="small text-muted">Mínimo 5 años de experiencia activa en competencia o enseñanza.</p>
+        </div>
+    </section>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        
+        <div class="col">
+            <div class="card instructor-card h-100 border-0 shadow-lg text-center p-4">
+                <img th:src="@{https://placehold.co/300x300/1A1A1A/ffffff?text=Lucas}" src="https://placehold.co/300x300/1A1A1A/ffffff?text=Lucas" class="mx-auto rounded-circle instructor-photo mb-3" alt="Foto de Lucas Martín">
+                <div class="card-body p-0">
+                    <h5 class="card-title fw-bold mb-1">Lucas Martín</h5>
+                    <p class="text-primary small mb-2 text-uppercase">Especialista: Patinaje Urbano y Freestyle</p>
+                    <p class="card-text small text-muted">Experto en slalom y maniobras urbanas complejas. Su método se centra en el control total y la agilidad en la ciudad.</p>
+                    <hr class="my-3">
+                    <p class="small fw-semibold mb-1">Clases Principales:</p>
+                    <span class="badge bg-secondary me-1">Dominio</span>
+                    <span class="badge bg-secondary">Experto</span>
+                    
+                    <div class="social-links mt-3 fs-5">
+                        <a href="#" class="text-dark mx-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-dark mx-2"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card instructor-card h-100 border-0 shadow-lg text-center p-4">
+                <img th:src="@{https://placehold.co/300x300/1A1A1A/ffffff?text=Sofia}" src="https://placehold.co/300x300/1A1A1A/ffffff?text=Sofia" class="mx-auto rounded-circle instructor-photo mb-3" alt="Foto de Sofía Ríos">
+                <div class="card-body p-0">
+                    <h5 class="card-title fw-bold mb-1">Sofía Ríos</h5>
+                    <p class="text-primary small mb-2 text-uppercase">Especialista: Patinaje Artístico y Quads</p>
+                    <p class="card-text small text-muted">Base en patinaje artístico sobre hielo; enseña quads y patinaje tradicional. Experta en giros, saltos y coreografías.</p>
+                    <hr class="my-3">
+                    <p class="small fw-semibold mb-1">Clases Principales:</p>
+                    <span class="badge bg-secondary me-1">Iniciación</span>
+                    <span class="badge bg-secondary">Dominio</span>
+
+                    <div class="social-links mt-3 fs-5">
+                        <a href="#" class="text-dark mx-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-dark mx-2"><i class="bi bi-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card instructor-card h-100 border-0 shadow-lg text-center p-4">
+                <img th:src="@{https://placehold.co/300x300/1A1A1A/ffffff?text=Daniel}" src="https://placehold.co/300x300/1A1A1A/ffffff?text=Daniel" class="mx-auto rounded-circle instructor-photo mb-3" alt="Foto de Daniel Soto">
+                <div class="card-body p-0">
+                    <h5 class="card-title fw-bold mb-1">Daniel Soto</h5>
+                    <p class="text-primary small mb-2 text-uppercase">Especialista: Iniciación y Seguridad Vial</p>
+                    <p class="card-text small text-muted">Ideal para principiantes y niños. Foco en frenado, equilibrio y cómo patinar seguro en ciclovías y zonas recreativas.</p>
+                    <hr class="my-3">
+                    <p class="small fw-semibold mb-1">Clases Principales:</p>
+                    <span class="badge bg-secondary me-1">Iniciación</span>
+                    <span class="badge bg-secondary">Seguridad</span>
+
+                    <div class="social-links mt-3 fs-5">
+                        <a href="#" class="text-dark mx-2"><i class="bi bi-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <section class="text-center mt-5 p-5 bg-light rounded-3">
+        <p class="lead fw-bold mb-3">¿Listo para conocerlos en persona?</p>
+        <a th:href="@{/contactar}" class="btn btn-primary btn-lg">Agenda una Clase de Prueba</a>
+    </section>
+
+</div>
+</th:block>
+</html>

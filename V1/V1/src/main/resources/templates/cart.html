@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Carrito | Roller Speed', ~{::content})">
+<th:block th:fragment="content">
+    <div class="container my-4 d-flex justify-content-end">
+        <div class="card card-light shadow-lg" style="max-width: 420px; width: 100%;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0">Tu carrito</h4>
+                    <a th:href="@{/tienda}" class="btn btn-sm btn-outline-primary">Tienda</a>
+                </div>
+
+                <div th:if="${summary.items.size() == 0}">
+                    <p class="text-muted mb-0">No tienes productos en el carrito.</p>
+                </div>
+
+                <div th:if="${summary.items.size() > 0}">
+                    <div class="mb-3" style="max-height: 250px; overflow-y: auto;">
+                        <table class="table table-sm align-middle">
+                            <tbody>
+                                <tr th:each="item : ${summary.items}">
+                                    <td class="fw-semibold" th:text="${item.product.nombre}">Producto</td>
+                                    <td class="text-end small" th:text="${item.quantity} + ' x'">1</td>
+                                    <td class="text-end small" th:text="${#numbers.formatDecimal(item.product.precio * item.quantity,1,'POINT',0,'COMMA')}">$0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <form class="card card-light p-2 shadow-sm mb-3" th:action="@{/cart/envio}" method="post">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="mb-0">¿Agregar envío?</h6>
+                                <small class="text-muted">Costo fijo: $15.000</small>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="envio" name="envio" th:checked="${summary.envioSeleccionado}">
+                                <label class="form-check-label" for="envio">Sí</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm">Ok</button>
+                        </div>
+                    </form>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>Subtotal</span>
+                            <span th:text="${#numbers.formatDecimal(summary.subtotal,1,'POINT',0,'COMMA')}">$0</span>
+                        </div>
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>Impuestos (19%)</span>
+                            <span th:text="${#numbers.formatDecimal(summary.impuestos,1,'POINT',0,'COMMA')}">$0</span>
+                        </div>
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>Envío</span>
+                            <span th:text="${#numbers.formatDecimal(summary.envio,1,'POINT',0,'COMMA')}">$0</span>
+                        </div>
+                        <hr class="my-2">
+                        <div class="d-flex justify-content-between fw-bold">
+                            <span>Total</span>
+                            <span th:text="${#numbers.formatDecimal(summary.total,1,'POINT',0,'COMMA')}">$0</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <form th:action="@{/cart/clear}" method="post">
+                            <button class="btn btn-outline-secondary btn-sm" type="submit">Vaciar</button>
+                        </form>
+                        <a th:href="@{/checkout}" class="btn btn-primary btn-sm flex-grow-1">Ir a pago</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

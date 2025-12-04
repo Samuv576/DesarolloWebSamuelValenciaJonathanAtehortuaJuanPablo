@@ -10,8 +10,10 @@ public class Pago {
     private final Long estudianteId;
     private final BigDecimal monto;
     private final LocalDate fecha;
+    private final MedioPago medioPago;
+    private EstadoPago estado;
 
-    public Pago(Long id, Long estudianteId, BigDecimal monto, LocalDate fecha) {
+    public Pago(Long id, Long estudianteId, BigDecimal monto, LocalDate fecha, MedioPago medioPago, EstadoPago estado) {
         if (estudianteId == null) {
             throw new DomainException("El pago requiere estudiante");
         }
@@ -22,6 +24,11 @@ public class Pago {
         this.estudianteId = estudianteId;
         this.monto = monto;
         this.fecha = fecha == null ? LocalDate.now() : fecha;
+        if (medioPago == null) {
+            throw new DomainException("El medio de pago es obligatorio");
+        }
+        this.medioPago = medioPago;
+        this.estado = estado == null ? EstadoPago.PENDIENTE : estado;
     }
 
     public boolean esMoroso(LocalDate fechaReferencia) {
@@ -42,5 +49,17 @@ public class Pago {
 
     public LocalDate getFecha() {
         return fecha;
+    }
+
+    public MedioPago getMedioPago() {
+        return medioPago;
+    }
+
+    public EstadoPago getEstado() {
+        return estado;
+    }
+
+    public void marcarPagado() {
+        this.estado = EstadoPago.PAGADO;
     }
 }
