@@ -37,3 +37,21 @@ No se incluyen tests automatizados; ejecutar `./mvnw test` si agregas pruebas.
 ## Notas
 - Seed inicial crea usuarios, instructores, alumnos, clases, pagos, inscripciones y grupos de comunidad.
 - Seguridad: roles ADMINISTRADOR, INSTRUCTOR, ALUMNO; CSRF desactivado para simplicidad en demo.
+
+## Deploy rápido (Railway/Render/Fly)
+- El puerto ya se toma de `PORT` (`server.port=${PORT:8085}`).
+- Variables esperadas en producción:
+  - `SPRING_DATASOURCE_URL`
+  - `SPRING_DATASOURCE_USERNAME`
+  - `SPRING_DATASOURCE_PASSWORD`
+  - (opcional) `SPRING_JPA_HIBERNATE_DDL_AUTO`
+- Incluye `Dockerfile` multistage:
+  ```bash
+  docker build -t patin-pro .
+  docker run -p 8085:8085 \
+    -e SPRING_DATASOURCE_URL=jdbc:mysql://host:3306/db \
+    -e SPRING_DATASOURCE_USERNAME=user \
+    -e SPRING_DATASOURCE_PASSWORD=pass \
+    patin-pro
+  ```
+- En Railway/Render: conecta el repo, usa Dockerfile o el buildpack Java; añade las variables de DB que entregue el servicio MySQL/Postgres y publica.
