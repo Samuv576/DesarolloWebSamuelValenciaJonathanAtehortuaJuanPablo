@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Clase | Admin | Patín Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 bg-white text-dark">
+                <div class="card-header bg-dark text-white fw-bold h5 py-3">
+                    <span th:text="${clase.id} != null ? 'Editar Clase' : 'Nueva Clase'">Formulario</span>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/admin/clases/save}" th:object="${clase}" method="post">
+                        <input type="hidden" th:field="*{id}">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label">Nombre</label>
+                                <input class="form-control" th:field="*{nombre}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nivel</label>
+                                <select class="form-select" th:field="*{nivel}" required>
+                                    <option value="">Seleccione...</option>
+                                    <option th:each="n : ${niveles}" th:value="${n}" th:text="${n}"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Instructor</label>
+                                <select class="form-select" name="instructorId" required>
+                                    <option value="">Seleccione...</option>
+                                    <option th:each="inst : ${instructores}" th:value="${inst.id}" th:selected="${clase.instructor != null and clase.instructor.id == inst.id}" th:text="${inst.nombre}"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Días de la semana (selección múltiple)</label>
+                                <select class="form-select" name="diasSeleccionados" multiple size="7">
+                                    <option th:each="d : ${daysOfWeek}"
+                                            th:value="${d}"
+                                            th:selected="${clase.diasSemana != null and #strings.contains(clase.diasSemana, d.name())}"
+                                            th:text="${d}"></option>
+                                </select>
+                                <small class="text-muted">No se repetirán días seleccionados.</small>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Hora inicio</label>
+                                <input type="time" class="form-control" th:field="*{horaInicio}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Hora fin</label>
+                                <input type="time" class="form-control" th:field="*{horaFin}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Fecha inicio</label>
+                                <input type="date" class="form-control" th:field="*{fechaInicio}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Fecha fin</label>
+                                <input type="date" class="form-control" th:field="*{fechaFin}">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Cupo</label>
+                                <input type="number" class="form-control" th:field="*{cupo}" min="1" required>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a th:href="@{/admin/clases}" class="btn btn-outline-secondary">Volver</a>
+                            <button type="submit" class="btn btn-primary fw-bold">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

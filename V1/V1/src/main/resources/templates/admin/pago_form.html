@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Pago | Admin | Patín Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 bg-white text-dark">
+                <div class="card-header bg-dark text-white fw-bold h5 py-3">
+                    <span th:text="${pago.id} != null ? 'Editar Pago' : 'Registrar Pago'">Formulario</span>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/admin/pagos/save}" th:object="${pago}" method="post">
+                        <input type="hidden" th:field="*{id}">
+                        <div class="mb-3">
+                            <label class="form-label">Estudiante</label>
+                            <select class="form-select" name="estudianteId" required>
+                                <option value="">Seleccione...</option>
+                                <option th:each="est : ${estudiantes}" th:value="${est.id}" th:selected="${pago.estudiante != null and pago.estudiante.id == est.id}" th:text="${est.nombre}"></option>
+                            </select>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Fecha</label>
+                                <input type="date" class="form-control" th:field="*{fecha}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Monto</label>
+                                <input type="number" class="form-control" th:field="*{monto}" min="0" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Medio de Pago</label>
+                                <select class="form-select" th:field="*{medioPago}" required>
+                                    <option value="">Seleccione...</option>
+                                    <option th:each="m : ${medios}" th:value="${m}" th:text="${m}"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Estado</label>
+                                <select class="form-select" th:field="*{estado}" required>
+                                    <option value="">Seleccione...</option>
+                                    <option th:each="e : ${estados}" th:value="${e}" th:text="${e}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a th:href="@{/admin/pagos}" class="btn btn-outline-secondary">Volver</a>
+                            <button type="submit" class="btn btn-primary fw-bold">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

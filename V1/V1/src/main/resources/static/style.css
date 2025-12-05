@@ -90,6 +90,27 @@ h1, h2, h3, h4, h5, h6 {
     color: rgba(255, 255, 255, 0.72) !important; /* Muted legible sobre fondo oscuro */
 }
 
+.card,
+.card-body,
+.table,
+.table td,
+.table th {
+    color: #212529 !important; /* Asegura contraste en tarjetas y tablas */
+}
+
+.table thead th {
+    background-color: #f8f9fa !important;
+    color: #212529 !important;
+}
+
+.table tbody tr {
+    background-color: #ffffff !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f5f6f8 !important;
+}
+
 /* Boton de Registro (Alternativo al primario) */
 .btn-dark {
     background-color: #1A1A1A !important;
@@ -155,11 +176,15 @@ h1, h2, h3, h4, h5, h6 {
     color: #ECF0F1;
 }
 
+.text-white-75 {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
 .footer-link {
     display: block;
     margin-bottom: 5px;
     font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.5) !important;
+    color: rgba(255, 255, 255, 0.78) !important;
     transition: color 0.3s;
 }
 
@@ -431,4 +456,38 @@ hr {
 
 .border-secondary {
     border-color: #6c757d !important;
+}
+
+/* 5.8. COMUNIDAD (legibilidad) */
+.community-section .card,
+.community-section .list-group-item {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #f5f7fa;
+}
+
+.community-section .card-header,
+.community-section .card-footer {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f5f7fa;
+}
+
+.community-section h1,
+.community-section h4,
+.community-section h5,
+.community-section strong {
+    color: #f5f7fa;
+}
+
+.community-section .text-muted {
+    color: rgba(245, 247, 250, 0.75) !important;
+}
+
+.community-section .list-group-item small {
+    color: rgba(245, 247, 250, 0.65);
+}
+
+.community-section .badge {
+    background: rgba(255, 87, 34, 0.15);
+    color: #ffd7c4;
 }

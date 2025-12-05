@@ -1,24 +1,24 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-      th:replace="base :: base('Gestión de Estudiantes | Admin | Patín Pro', ~{::content})">
+      th:replace="base :: base('Gestion de Estudiantes | Admin | Patin Pro', ~{::content})">
 <th:block th:fragment="content">
 <div class="container my-5">
     
     <header class="text-center mb-5 pb-3">
-        <h1 class="display-4 fw-bold text-uppercase">Administración de Estudiantes</h1>
-        <p class="lead text-muted">Creación, edición y gestión de todos los perfiles de la Escuela de Patinaje (Regla 1.1).</p>
+        <h1 class="display-4 fw-bold text-uppercase">Administracion de Estudiantes</h1>
+        <p class="lead text-muted">Listado conectado a base de datos. Solo visible para ADMIN.</p>
     </header>
 
     <div class="row justify-content-center">
         <div class="col-lg-12">
             
             <div class="d-flex justify-content-end mb-3">
-                <button class="btn btn-primary btn-lg fw-bold" data-bs-toggle="modal" data-bs-target="#estudianteModal">
+                <a class="btn btn-primary btn-lg fw-bold" th:href="@{/admin/estudiantes/new}">
                     <i class="bi bi-person-plus-fill me-2"></i> Nuevo Estudiante
-                </button>
+                </a>
             </div>
 
-            <div class="card shadow-lg border-0">
+            <div class="card shadow-lg border-0 bg-white text-dark">
                 <div class="card-header bg-dark text-white fw-bold h5 py-3">
                     Listado General de Estudiantes
                 </div>
@@ -28,46 +28,43 @@
                             <thead>
                                 <tr class="table-light">
                                     <th scope="col" class="fw-bold">ID</th>
-                                    <th scope="col" class="fw-bold">Nombre Completo</th>
-                                    <th scope="col" class="fw-bold">Identificación</th>
-                                    <th scope="col" class="fw-bold">Nivel (Regla 2.1)</th>
-                                    <th scope="col" class="fw-bold">Pago (Regla 6)</th>
+                                    <th scope="col" class="fw-bold">Nombre</th>
+                                    <th scope="col" class="fw-bold">Identificacion</th>
+                                    <th scope="col" class="fw-bold">Nivel</th>
+                                    <th scope="col" class="fw-bold">Medio de Pago</th>
+                                    <th scope="col" class="fw-bold">Asignar a clase</th>
                                     <th scope="col" class="fw-bold">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>101</td>
-                                    <td>Daniel Soto</td>
-                                    <td>1020304050</td>
-                                    <td>Avanzado</td>
-                                    <td><span class="badge bg-success">AL DÍA</span></td>
+                                <tr th:each="est : ${estudiantes}">
+                                    <td th:text="${est.id}">1</td>
+                                    <td th:text="${est.nombre}">Nombre</td>
+                                    <td th:text="${est.identificacion}">CC</td>
+                                    <td th:text="${est.nivel}">Nivel</td>
+                                    <td th:text="${est.medioPago}">Medio</td>
                                     <td>
-                                        <button class="btn btn-sm btn-info text-white me-2" data-bs-toggle="modal" data-bs-target="#estudianteModal"><i class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                        <form th:action="@{'/admin/estudiantes/' + ${est.id} + '/inscribir'}" method="post" class="d-flex gap-2">
+                                            <select class="form-select form-select-sm" name="claseId" required>
+                                                <option value="" disabled selected>Selecciona clase</option>
+                                                <option th:each="c : ${clases}" th:value="${c.id}" th:text="${c.nombre}"></option>
+                                            </select>
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">Agregar</button>
+                                        </form>
+                                    </td>
+                                    <td class="d-flex gap-2">
+                                        <a class="btn btn-sm btn-info text-white" th:href="@{'/admin/estudiantes/' + ${est.id} + '/edit'}">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <form th:action="@{'/admin/estudiantes/' + ${est.id} + '/delete'}" method="post" onsubmit="return confirm('Eliminar este estudiante?');">
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>102</td>
-                                    <td>María López</td>
-                                    <td>2030405060</td>
-                                    <td>Principiante</td>
-                                    <td><span class="badge bg-danger">MOROSO</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info text-white me-2" data-bs-toggle="modal" data-bs-target="#estudianteModal"><i class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>103</td>
-                                    <td>Elena Gómez</td>
-                                    <td>3040506070</td>
-                                    <td>Intermedio</td>
-                                    <td><span class="badge bg-success">AL DÍA</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info text-white me-2" data-bs-toggle="modal" data-bs-target="#estudianteModal"><i class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
-                                    </td>
+                                <tr th:if="${#lists.isEmpty(estudiantes)}">
+                                    <td colspan="7" class="text-center text-muted">No hay estudiantes registrados.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -76,49 +73,7 @@
             </div>
             
             <div class="alert alert-warning mt-4 small">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i> **Restricción de Seguridad:** Solo el Administrador puede editar o crear usuarios. La columna "Pago" es solo de referencia; la **Gestión Financiera** se realiza en la sección de Pagos.
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="estudianteModal" tabindex="-1" aria-labelledby="estudianteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="estudianteModalLabel">Crear/Editar Estudiante</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="estudianteForm">
-                    <p class="small text-muted mb-3">Todos los campos marcados con * son obligatorios (Regla 2.1).</p>
-                    <div class="row g-3">
-                        <div class="col-md-6"><label for="nombre" class="form-label small fw-semibold">Nombre Completo *</label><input type="text" class="form-control" id="nombre" required></div>
-                        <div class="col-md-6"><label for="identificacion" class="form-label small fw-semibold">Número de Identificación * (Único)</label><input type="text" class="form-control" id="identificacion" required></div>
-                        <div class="col-md-4"><label for="edad" class="form-label small fw-semibold">Edad * (4 a 60 años)</label><input type="number" class="form-control" id="edad" min="4" max="60" required></div>
-                        <div class="col-md-4"><label for="telefono" class="form-label small fw-semibold">Teléfono * (10 dígitos)</label><input type="tel" class="form-control" id="telefono" maxlength="10" required></div>
-                        <div class="col-md-4">
-                            <label for="nivel" class="form-label small fw-semibold">Nivel Asignado * (Regla 2.1)</label>
-                            <select class="form-select" id="nivel" required>
-                                <option value="" disabled selected>Selecciona un nivel</option>
-                                <option>Principiante</option>
-                                <option>Intermedio</option>
-                                <option>Avanzado</option>
-                            </select>
-                        </div>
-                        <div class="col-12"><label for="correo" class="form-label small fw-semibold">Correo Electrónico *</label><input type="email" class="form-control" id="correo" required></div>
-                        
-                        <h6 class="mt-4 fw-bold">Contacto de Emergencia (Regla 2.1)</h6>
-                        <div class="col-md-4"><label for="ce_nombre" class="form-label small fw-semibold">Nombre *</label><input type="text" class="form-control" id="ce_nombre" required></div>
-                        <div class="col-md-4"><label for="ce_relacion" class="form-label small fw-semibold">Relación *</label><input type="text" class="form-control" id="ce_relacion" required></div>
-                        <div class="col-md-4"><label for="ce_telefono" class="form-label small fw-semibold">Teléfono * (10 dígitos)</label><input type="tel" class="form-control" id="ce_telefono" maxlength="10" required></div>
-
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" form="estudianteForm" class="btn btn-primary fw-bold">Guardar Estudiante</button>
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> Solo el rol ADMIN puede ver y gestionar estos datos.
             </div>
         </div>
     </div>

@@ -7,8 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "clases")
@@ -28,15 +28,18 @@ public class ClassEntity {
     @Column(nullable = false)
     private Nivel nivel;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private DayOfWeek dia;
+    @Column
+    private String diasSemana; // lista separada por coma de días (LUNES,MARTES,...)
 
     @Column(nullable = false)
     private LocalTime horaInicio;
 
     @Column(nullable = false)
     private LocalTime horaFin;
+
+    private LocalDate fechaInicio;
+
+    private LocalDate fechaFin;
 
     @Column(nullable = false)
     private int cupo;

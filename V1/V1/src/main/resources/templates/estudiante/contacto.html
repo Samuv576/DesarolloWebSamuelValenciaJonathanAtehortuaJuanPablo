@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Contacto | Estudiante', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 fw-bold text-dark mb-0">Contacto</h1>
+        <a class="btn btn-outline-primary" th:href="@{/estudiante/dashboard}"><i class="bi bi-arrow-left"></i> Volver al dashboard</a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">Envíanos un mensaje</h5>
+                    <p class="text-muted small mb-3">Responderemos lo antes posible.</p>
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input class="form-control" type="text" th:value="${estudiante != null ? estudiante.nombre : ''}" placeholder="Tu nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Correo</label>
+                            <input class="form-control" type="email" th:value="${estudiante != null ? estudiante.correo : ''}" placeholder="tu@correo.com">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mensaje</label>
+                            <textarea class="form-control" rows="4" placeholder="Escribe tu mensaje"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary w-100" onclick="alert('Su mensaje fue enviado con éxito');">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h6 class="fw-bold">Datos de contacto</h6>
+                    <p class="mb-1 small text-muted">Tel: 300 000 0000</p>
+                    <p class="mb-1 small text-muted">Email: info@patinpro.com</p>
+                    <p class="mb-0 small text-muted">Horario: Lun-Vie 8am-6pm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

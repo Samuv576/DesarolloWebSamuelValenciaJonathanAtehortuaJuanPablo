@@ -1,69 +1,74 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-      th:replace="base :: base('Estado de Cuenta | Patín Pro', ~{::content})">
+      th:replace="base :: base('Pagos | Estudiante | Patín Pro', ~{::content})">
 <th:block th:fragment="content">
 <div class="container my-5">
-    
-    <header class="text-center mb-5 pb-3">
-        <h1 class="display-4 fw-bold text-uppercase">Estado de Cuenta y Pagos</h1>
-        <p class="lead text-muted">Aquí puedes verificar tu estado de pago y el historial de tus mensualidades.</p>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 fw-bold text-dark mb-0">Pagos de Mensualidad</h1>
+        <a class="btn btn-outline-primary" th:href="@{/estudiante/dashboard}"><i class="bi bi-arrow-left"></i> Volver al dashboard</a>
+    </div>
+    <header class="mb-4 text-center">
+        <p class="text-muted">Aquí puedes registrar tu pago de mensualidad. Los pagos quedan marcados como Pagado.</p>
     </header>
 
-    <div class="row justify-content-center mb-5">
-        <div class="col-lg-8">
-            <div class="alert alert-danger text-center shadow-sm p-4" role="alert">
-                <i class="bi bi-x-octagon-fill fs-3 me-3"></i>
-                <h4 class="alert-heading fw-bold">ESTADO: MOROSO</h4>
-                <p class="mb-0">Tu último pago venció hace más de 30 días. Por normativa (**Regla 6**), **no puedes inscribirte a nuevas clases** ni obtener certificados de progreso hasta regularizar tu situación.</p>
-            </div>
-            
-            </div>
-    </div>
-
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-dark text-white fw-bold h5 py-3">
-                    Historial de Transacciones
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card shadow-lg border-0 bg-white text-dark">
+                <div class="card-header bg-primary text-white fw-bold">Registrar pago</div>
+                <div class="card-body">
+                    <form th:action="@{/estudiante/pagos/pagar}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Selecciona tu nombre</label>
+                            <select class="form-select" name="estudianteId" required>
+                                <option value="" disabled selected>Selecciona</option>
+                                <option th:each="est : ${estudiantes}" th:value="${est.id}" th:text="${est.nombre}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Monto</label>
+                            <input type="number" class="form-control" name="monto" min="0" step="1000" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Medio de pago</label>
+                            <select class="form-select" name="medio" required>
+                                <option value="" disabled selected>Selecciona</option>
+                                <option th:each="m : ${medios}" th:value="${m}" th:text="${m}"></option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Registrar pago</button>
+                    </form>
                 </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-lg border-0 bg-white text-dark">
+                <div class="card-header bg-dark text-white fw-bold">Pagos realizados</div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover mb-0">
+                        <table class="table table-striped table-hover mb-0 align-middle">
                             <thead>
                                 <tr class="table-light">
-                                    <th scope="col" class="fw-bold">Mes</th>
-                                    <th scope="col" class="fw-bold">Fecha de Pago</th>
-                                    <th scope="col" class="fw-bold">Monto</th>
-                                    <th scope="col" class="fw-bold">Estado</th>
+                                    <th>Fecha</th>
+                                    <th>Monto</th>
+                                    <th>Medio</th>
+                                    <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Mensualidad Noviembre 2025</td>
-                                    <td>N/A</td>
-                                    <td>$80.000 COP</td>
-                                    <td><span class="badge bg-danger">PENDIENTE / MOROSO</span></td>
+                                <tr th:each="p : ${pagos}">
+                                    <td th:text="${p.fecha}">-</td>
+                                    <td th:text="${p.monto}">$0</td>
+                                    <td th:text="${p.medioPago}">-</td>
+                                    <td><span class="badge" th:classappend="${p.estado.name() == 'PAGADO'} ? ' bg-success' : ' bg-warning text-dark'" th:text="${p.estado}">PENDIENTE</span></td>
                                 </tr>
-                                <tr>
-                                    <td>Mensualidad Octubre 2025</td>
-                                    <td>05/10/2025</td>
-                                    <td>$80.000 COP</td>
-                                    <td><span class="badge bg-success">PAGADO</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Mensualidad Septiembre 2025</td>
-                                    <td>02/09/2025</td>
-                                    <td>$80.000 COP</td>
-                                    <td><span class="badge bg-success">PAGADO</span></td>
+                                <tr th:if="${#lists.isEmpty(pagos)}">
+                                    <td colspan="4" class="text-center text-muted">Aún no tienes pagos registrados.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-            
-            <div class="text-center mt-4 p-3 bg-light rounded-3 small text-muted">
-                <p class="mb-0">⚠️ **Restricción de Seguridad:** Por normativa (**Regla 6**), solo el **Administrador** tiene la potestad de editar o corregir cualquier registro de pago. Si hay un error, contacta a la administración.</p>
             </div>
         </div>
     </div>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Confirmación de Pago', ~{::content})">
+<th:block th:fragment="content">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card shadow-lg border-0" th:classappend="${exito} ? ' bg-success text-white' : ' bg-warning'">
+                    <div class="card-body text-center py-5">
+                        <i class="bi" th:classappend="${exito} ? ' bi-check-circle-fill display-3 mb-3' : ' bi-hourglass-split display-3 mb-3'"></i>
+                        <h2 class="fw-bold" th:text="${exito} ? 'Pago confirmado' : 'Pago pendiente'">Estado</h2>
+                        <p class="mt-2" th:text="${exito} ? 'Gracias por tu compra. Tu pago fue procesado con éxito.' : 'Tu pago está pendiente de confirmación. Te notificaremos cuando se apruebe.'"></p>
+                        <a th:href="@{/}" class="btn btn-light mt-3">Volver al inicio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

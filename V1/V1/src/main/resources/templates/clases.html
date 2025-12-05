@@ -42,7 +42,7 @@
                         <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Técnicas de frenado seguro</li>
                         <li class="mb-2 text-muted"><i class="bi bi-dash-circle me-2"></i> Trucos avanzados</li>
                     </ul>
-                    <a href="#" class="btn btn-primary w-100 fw-bold">Inscribirse</a>
+                    <a th:href="@{/checkout(curso='Iniciación',precio='$80',detalle='4 sesiones mensuales (1h), equilibrio y frenado seguro')}" class="btn btn-primary w-100 fw-bold">Inscribirse</a>
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
                         <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Trucos de plano (Ollie, Shove-it)</li>
                         <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Análisis de video personalizado</li>
                     </ul>
-                    <a href="#" class="btn btn-primary w-100 fw-bold">Inscribirse</a>
+                    <a th:href="@{/checkout(curso='Dominio',precio='$120',detalle='8 sesiones mensuales, rampas y rails, trucos de plano')}" class="btn btn-primary w-100 fw-bold">Inscribirse</a>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
                         <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Uso de bowls y halfpipes</li>
                         <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Sesiones de práctica libre supervisada</li>
                     </ul>
-                    <a href="#" class="btn btn-primary w-100 fw-bold">Inscribirse</a>
+                    <a th:href="@{/checkout(curso='Experto',precio='$180',detalle='12 sesiones mensuales, flips y bowls, práctica supervisada')}" class="btn btn-primary w-100 fw-bold">Inscribirse</a>
                 </div>
             </div>
         </div>

@@ -10,7 +10,19 @@
                         Resumen de compra
                     </div>
                     <div class="card-body">
-                        <div th:if="${summary.items.size() == 0}">
+                        <div th:if="${cursoSeleccionado != null}">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <span class="fw-semibold" th:text="${cursoSeleccionado}">Curso</span>
+                                    <small class="text-muted d-block">Inscripción a clase</small>
+                                </div>
+                                <span class="fw-bold" th:text="${precioCurso != null} ? ${precioCurso} : '$0'">$0</span>
+                            </div>
+                            <div class="small text-muted" th:if="${detalleCurso != null}" th:text="${detalleCurso}">Detalle</div>
+                            <hr>
+                        </div>
+
+                        <div th:if="${summary.items.size() == 0} and ${cursoSeleccionado} == null">
                             <p class="text-muted mb-0">No hay productos en el carrito.</p>
                         </div>
                         <div th:if="${summary.items.size() > 0}">
@@ -51,7 +63,7 @@
                 <div class="card card-light shadow-lg">
                     <div class="card-header bg-primary text-white fw-bold">Datos de pago</div>
                     <div class="card-body">
-                        <form>
+                        <form th:action="@{/checkout/pagar}" method="post">
                             <div class="mb-3">
                                 <label class="form-label">Nombre completo</label>
                                 <input type="text" class="form-control" placeholder="Tu nombre" required>
@@ -61,18 +73,19 @@
                                 <input type="email" class="form-control" placeholder="correo@ejemplo.com" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Dirección de envío</label>
+                                <label class="form-label">Direccin de envío</label>
                                 <input type="text" class="form-control" placeholder="Calle 123, Ciudad" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Método de pago</label>
-                                <select class="form-select" required>
+                                <select class="form-select" name="medio" required>
                                     <option value="" disabled selected>Selecciona</option>
                                     <option>Tarjeta</option>
                                     <option>Transferencia</option>
                                     <option>Efectivo</option>
                                 </select>
                             </div>
+                            <input type="hidden" name="estado" value="exito">
                             <button type="submit" class="btn btn-primary w-100">Confirmar pedido</button>
                         </form>
                     </div>

@@ -1,4 +1,4 @@
-<nav th:fragment="app-header" class="navbar navbar-expand-lg navbar-light py-3 sticky-top header-premium" id="mainNavbar">
+﻿<nav th:fragment="app-header" class="navbar navbar-expand-lg navbar-light py-3 sticky-top header-premium" id="mainNavbar" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="container">
         
         <a class="navbar-brand me-5" th:href="@{/}">
@@ -17,18 +17,20 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                
                 <li class="nav-item mx-2">
-                    <a class="nav-link text-uppercase fw-bold" th:href="@{/institucional#mision}">Misión</a>
+                    <a class="nav-link text-uppercase fw-bold" th:href="@{/tienda}">Tienda</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link text-uppercase fw-bold" th:href="@{/institucional#vision}">Visión</a>
+                    <a class="nav-link text-uppercase fw-bold" th:href="@{/clases}">Clases</a>
                 </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-uppercase fw-bold" th:href="@{/institucional#valores}">Valores</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-uppercase fw-bold" th:href="@{/institucional#servicios}">Servicios</a>
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle text-uppercase fw-bold" href="#" id="masDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Más
+                    </a>
+                    <ul class="dropdown-menu border-0 shadow-lg" aria-labelledby="masDropdown">
+                        <li><a class="dropdown-item" th:href="@{/sobre-nosotros}">Sobre nosotros</a></li>
+                        <li><a class="dropdown-item" th:href="@{/instructores}">Nuestros instructores</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item mx-2">
                     <a class="nav-link text-uppercase fw-bold" th:href="@{/institucional#eventos}">Eventos</a>
@@ -54,6 +56,7 @@
                         <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/estudiantes}">Gestión Estudiantes</a></li>
                         <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/horarios}">Gestión Horarios</a></li>
                         <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/pagos}">Gestión Pagos</a></li>
+                        <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/usuarios}">Gestión Usuarios</a></li>
                     </ul>
                 </li>                
             </ul>

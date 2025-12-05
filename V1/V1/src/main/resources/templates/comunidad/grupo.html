@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Grupo | Comunidad', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5 community-section">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1 class="h4 fw-bold" th:text="${grupo.nombre}">Grupo</h1>
+            <p class="text-muted" th:text="${grupo.descripcion}">Descripción</p>
+        </div>
+        <div sec:authorize="hasRole('ADMINISTRADOR')">
+            <form th:action="@{'/comunidad/' + ${grupo.id} + '/eliminar'}" method="post" onsubmit="return confirm('Eliminar grupo?');">
+                <button class="btn btn-danger btn-sm" type="submit">Eliminar grupo</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-light fw-bold">Miembros</div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center" th:each="m : ${miembros}">
+                            <span>
+                                <strong th:text="${m.username}">usuario</strong>
+                                <small class="text-muted d-block" th:text="${m.rol}">ROL</small>
+                            </span>
+                            <form sec:authorize="hasAnyRole('ADMINISTRADOR','INSTRUCTOR')" th:action="@{'/comunidad/' + ${grupo.id} + '/miembros/' + ${m.id} + '/eliminar'}" method="post">
+                                <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-x"></i></button>
+                            </form>
+                        </li>
+                        <li class="list-group-item" th:if="${#lists.isEmpty(miembros)}">Aún no hay miembros.</li>
+                    </ul>
+                </div>
+                <div class="card-footer" sec:authorize="hasAnyRole('ADMINISTRADOR','INSTRUCTOR')">
+                    <form class="d-flex gap-2" th:action="@{'/comunidad/' + ${grupo.id} + '/miembros/agregar'}" method="post">
+                        <input type="text" name="username" class="form-control form-control-sm" placeholder="usuario" required>
+                        <select name="rol" class="form-select form-select-sm">
+                            <option value="ALUMNO">ALUMNO</option>
+                            <option value="INSTRUCTOR">INSTRUCTOR</option>
+                        </select>
+                        <button class="btn btn-sm btn-primary" type="submit">Agregar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 mb-3">
+                <div class="card-header bg-primary text-white fw-bold">Mensajes</div>
+                <div class="card-body" style="max-height: 320px; overflow-y: auto;">
+                    <div th:each="msg : ${mensajes}" class="mb-3">
+                        <div class="small text-muted" th:text="${msg.creadoEn}">fecha</div>
+                        <div><strong th:text="${msg.autor}">autor</strong> <span class="badge bg-secondary" th:text="${msg.rolAutor}">ROL</span></div>
+                        <div th:text="${msg.contenido}">contenido</div>
+                    </div>
+                    <div th:if="${#lists.isEmpty(mensajes)}" class="text-muted">Sin mensajes.</div>
+                </div>
+                <div class="card-footer" sec:authorize="hasAnyRole('ADMINISTRADOR','INSTRUCTOR','ALUMNO')">
+                    <form th:action="@{'/comunidad/' + ${grupo.id} + '/mensajes'}" method="post">
+                        <div class="input-group">
+                            <input type="text" name="contenido" class="form-control" placeholder="Escribe un mensaje" required>
+                            <button class="btn btn-primary" type="submit">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

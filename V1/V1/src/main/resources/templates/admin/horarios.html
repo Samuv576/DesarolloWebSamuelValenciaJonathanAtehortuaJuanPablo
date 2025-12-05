@@ -6,58 +6,62 @@
     
     <header class="text-center mb-5 pb-3">
         <h1 class="display-4 fw-bold text-uppercase">Gestión de Clases y Horarios</h1>
-        <p class="lead text-muted">Administración de la oferta académica: niveles, días, cupos e instructores (Regla 1.1 y 3.1).</p>
+        <p class="lead text-muted">Administración de la oferta académica: niveles, días, cupos e instructores (solo ADMIN).</p>
     </header>
 
     <div class="row justify-content-center">
         <div class="col-lg-12">
-            
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="h4 fw-bold mb-0 text-primary">Clases Definidas</h2>
-                <button class="btn btn-primary btn-lg fw-bold" data-bs-toggle="modal" data-bs-target="#claseModal">
+                <div class="alert alert-info mb-0 py-2 px-3">
+                    <i class="bi bi-calendar-week me-2"></i>
+                    <span th:text="'Días con clases esta semana: ' + ${diasConClases}">Días con clases</span>
+                </div>
+                <a class="btn btn-primary btn-lg fw-bold" th:href="@{/admin/clases/new}">
                     <i class="bi bi-plus-square-fill me-2"></i> Nueva Clase
-                </button>
+                </a>
             </div>
 
-            <div class="card shadow-lg border-0">
+            <div class="card shadow-lg border-0 bg-white text-dark">
+                <div class="card-header bg-dark text-white fw-bold h5 py-3">
+                    Clases definidas
+                </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover mb-0 align-middle">
                             <thead>
                                 <tr class="table-light">
-                                    <th scope="col" class="fw-bold">ID</th>
-                                    <th scope="col" class="fw-bold">Clase</th>
-                                    <th scope="col" class="fw-bold">Nivel</th>
-                                    <th scope="col" class="fw-bold">Horario</th>
-                                    <th scope="col" class="fw-bold">Instructor Asignado</th>
-                                    <th scope="col" class="fw-bold">Cupo (Ocupados/Máx)</th>
-                                    <th scope="col" class="fw-bold">Acciones</th>
+                                    <th class="fw-bold">Clase</th>
+                                    <th class="fw-bold">Nivel</th>
+                                    <th class="fw-bold">Días</th>
+                                    <th class="fw-bold">Instructor</th>
+                                    <th class="fw-bold">Cupo</th>
+                                    <th class="fw-bold">Fecha inicio</th>
+                                    <th class="fw-bold">Fecha fin</th>
+                                    <th class="fw-bold">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>C01</td>
-                                    <td>Técnica Freestyle: Slalom Básico</td>
-                                    <td><span class="badge bg-warning text-dark">Intermedio</span></td>
-                                    <td>Lunes 18:00 - 19:00</td>
-                                    <td>Lucas Martín</td>
-                                    <td>15 / 20</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info text-white me-2" data-bs-toggle="modal" data-bs-target="#claseModal"><i class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                <tr th:each="clase : ${clases}">
+                                    <td th:text="${clase.nombre}">Nombre</td>
+                                    <td><span class="badge bg-warning text-dark" th:text="${clase.nivel}">Nivel</span></td>
+                                    <td th:text="${clase.dias}">Días</td>
+                                    <td th:text="${clase.instructor}">Instructor</td>
+                                    <td th:text="${clase.cupo}">0</td>
+                                    <td th:text="${clase.fechaInicio}">-</td>
+                                    <td th:text="${clase.fechaFin}">-</td>
+                                    <td class="d-flex gap-2">
+                                        <a class="btn btn-sm btn-info text-white" th:href="@{'/admin/clases/' + ${clase.id} + '/edit'}">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <form th:action="@{'/admin/clases/' + ${clase.id} + '/delete'}" method="post" onsubmit="return confirm('Eliminar esta clase?');">
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>C02</td>
-                                    <td>Introducción al Deslizamiento</td>
-                                    <td><span class="badge bg-success">Principiante</span></td>
-                                    <td>Martes 17:00 - 18:00</td>
-                                    <td>Sofía Ríos</td>
-                                    <td>5 / 10</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info text-white me-2" data-bs-toggle="modal" data-bs-target="#claseModal"><i class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
-                                    </td>
+                                <tr th:if="${#lists.isEmpty(clases)}">
+                                    <td colspan="8" class="text-center text-muted">No hay clases registradas.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -66,65 +70,7 @@
             </div>
             
             <div class="alert alert-info mt-4 small">
-                <i class="bi bi-info-circle-fill me-2"></i> **Importante:** La asignación de estudiantes a estas clases se realiza automáticamente en el proceso de inscripción, respetando las reglas de Nivel y Cupo (Regla 4).
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="claseModal" tabindex="-1" aria-labelledby="claseModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="claseModalLabel">Crear/Editar Clase</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="claseForm">
-                    <p class="small text-muted mb-3">Defina los parámetros obligatorios de la clase (Regla 3.1).</p>
-                    <div class="row g-3">
-                        <div class="col-12"><label for="nombreClase" class="form-label small fw-semibold">Nombre de la Clase *</label><input type="text" class="form-control" id="nombreClase" required></div>
-                        
-                        <div class="col-md-6">
-                            <label for="nivelClase" class="form-label small fw-semibold">Nivel * (No puede quedar sin nivel)</label>
-                            <select class="form-select" id="nivelClase" required>
-                                <option value="" disabled selected>Selecciona el Nivel</option>
-                                <option>Principiante</option>
-                                <option>Intermedio</option>
-                                <option>Avanzado</option>
-                            </select>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <label for="instructorClase" class="form-label small fw-semibold">Instructor Asignado *</label>
-                            <select class="form-select" id="instructorClase" required>
-                                <option value="" disabled selected>Selecciona un Instructor</option>
-                                <option>Lucas Martín</option>
-                                <option>Sofía Ríos</option>
-                                <option>Daniel Soto</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="diaClase" class="form-label small fw-semibold">Día de la Semana *</label>
-                            <select class="form-select" id="diaClase" required>
-                                <option>Lunes</option><option>Martes</option><option>Miércoles</option><option>Jueves</option><option>Viernes</option><option>Sábado</option><option>Domingo</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4"><label for="horaInicio" class="form-label small fw-semibold">Hora de Inicio *</label><input type="time" class="form-control" id="horaInicio" required></div>
-                        <div class="col-md-4"><label for="horaFin" class="form-label small fw-semibold">Hora de Fin *</label><input type="time" class="form-control" id="horaFin" required></div>
-
-                        <div class="col-12">
-                            <label for="cupoMaximo" class="form-label small fw-semibold">Cupo Máximo * (Mín. 5, Máx. 30)</label>
-                            <input type="number" class="form-control" id="cupoMaximo" min="5" max="30" required>
-                        </div>
-                        
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" form="claseForm" class="btn btn-primary fw-bold">Guardar Clase</button>
+                <i class="bi bi-info-circle-fill me-2"></i> La asignación de estudiantes a estas clases se realiza en el proceso de inscripción respetando nivel y cupo.
             </div>
         </div>
     </div>

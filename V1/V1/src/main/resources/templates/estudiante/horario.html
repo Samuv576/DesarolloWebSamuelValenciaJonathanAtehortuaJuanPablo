@@ -3,6 +3,10 @@
       th:replace="base :: base('Mi Horario | Patín Pro', ~{::content})">
 <th:block th:fragment="content">
 <div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 fw-bold text-dark mb-0">Mi Horario</h1>
+        <a class="btn btn-outline-primary" th:href="@{/estudiante/dashboard}"><i class="bi bi-arrow-left"></i> Volver al dashboard</a>
+    </div>
     
     <header class="text-center mb-5 pb-3">
         <h1 class="display-4 fw-bold text-uppercase">Mi Horario de Clases</h1>
@@ -31,21 +35,21 @@
                             <tbody>
                                 <tr>
                                     <td>Técnica Freestyle: Slalom Básico</td>
-                                    <td>**Lunes**</td>
+                                    <td>Lunes</td>
                                     <td>18:00 - 19:00</td>
                                     <td>Lucas Martín</td>
                                     <td>15 / 20</td>
                                 </tr>
                                 <tr>
                                     <td>Control de Velocidad y Frenado Avanzado</td>
-                                    <td>**Miércoles**</td>
+                                    <td>Miércoles</td>
                                     <td>19:00 - 20:00</td>
                                     <td>Daniel Soto</td>
                                     <td>18 / 25</td>
                                 </tr>
                                 <tr>
                                     <td>Coreografía Artística (Quads)</td>
-                                    <td>**Sábado**</td>
+                                    <td>Sábado</td>
                                     <td>10:00 - 11:00</td>
                                     <td>Sofía Ríos</td>
                                     <td>12 / 15</td>

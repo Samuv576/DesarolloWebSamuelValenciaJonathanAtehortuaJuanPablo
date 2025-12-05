@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AttendanceJpaRepository extends JpaRepository<AttendanceEntity, Long> {
     List<AttendanceEntity> findByClaseIdAndFecha(Long claseId, LocalDate fecha);
-    List<AttendanceEntity> findByEstudianteId(Long estudianteId);
+    void deleteByClaseIdAndFecha(Long claseId, LocalDate fecha);
 }

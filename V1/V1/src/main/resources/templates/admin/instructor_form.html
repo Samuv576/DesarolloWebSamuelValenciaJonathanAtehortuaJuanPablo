@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Instructor | Admin | Patín Pro', ~{::content})">
+<th:block th:fragment="content">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 bg-white text-dark">
+                <div class="card-header bg-dark text-white fw-bold h5 py-3">
+                    <span th:text="${instructor.id} != null ? 'Editar Instructor' : 'Nuevo Instructor'">Formulario</span>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/admin/instructores/save}" th:object="${instructor}" method="post">
+                        <input type="hidden" th:field="*{id}">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre</label>
+                                <input class="form-control" th:field="*{nombre}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Identificación</label>
+                                <input class="form-control" th:field="*{identificacion}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Fecha de nacimiento</label>
+                                <input type="date" class="form-control" th:field="*{fechaNacimiento}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Género</label>
+                                <select class="form-select" th:field="*{genero}" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="MASCULINO">MASCULINO</option>
+                                    <option value="FEMENINO">FEMENINO</option>
+                                    <option value="OTRO">OTRO</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Teléfono</label>
+                                <input class="form-control" th:field="*{telefono}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Correo</label>
+                                <input type="email" class="form-control" th:field="*{correo}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Dirección</label>
+                                <input class="form-control" th:field="*{direccion}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Especialidad</label>
+                                <input class="form-control" th:field="*{especialidad}">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a th:href="@{/admin/instructores}" class="btn btn-outline-secondary">Volver</a>
+                            <button type="submit" class="btn btn-primary fw-bold">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>
