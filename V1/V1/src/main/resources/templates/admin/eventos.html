@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Eventos | Admin', ~{::content})">
+<th:block th:fragment="content">
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h4 fw-bold mb-1">Eventos</h1>
+            <p class="text-muted mb-0">Crear, editar o eliminar eventos.</p>
+        </div>
+        <a th:href="@{/admin/eventos/new}" class="btn btn-primary">Nuevo evento</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Categoria</th>
+                            <th>Fecha</th>
+                            <th>Ubicacion</th>
+                            <th>Destacado</th>
+                            <th class="text-end">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="ev : ${eventos}">
+                            <td th:text="${ev.titulo}">Titulo</td>
+                            <td th:text="${ev.categoria}">Categoria</td>
+                            <td th:text="${#temporals.format(ev.fecha, 'dd/MM/yyyy')}">Fecha</td>
+                            <td th:text="${ev.ubicacion}">Ubicacion</td>
+                            <td>
+                                <span class="badge" th:classappend="${ev.destacado} ? 'bg-success' : 'bg-secondary'"
+                                      th:text="${ev.destacado} ? 'Si' : 'No'">No</span>
+                            </td>
+                            <td class="text-end">
+                                <a th:href="@{/admin/eventos/{id}/edit(id=${ev.id})}" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                <form th:action="@{/admin/eventos/{id}/delete(id=${ev.id})}" method="post" class="d-inline">
+                                    <button class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar evento?')" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(eventos)}">
+                            <td colspan="6" class="text-center text-muted">No hay eventos registrados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

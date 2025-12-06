@@ -27,10 +27,11 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/home", "/index", "/institucional", "/institucional/**",
                                  "/style.css", "/images/**", "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
-                                 "/login", "/register", "/tienda", "/producto", "/clases", "/contactar", "/sobre-nosotros",
+                                 "/login", "/register", "/tienda", "/producto/**", "/clases", "/contactar", "/sobre-nosotros",
                                  "/politica-privacidad", "/preguntas-frecuentes", "/terminos", "/aviso_legal",
-                                 "/instructores", "/galeria", "/eventos", "/cart", "/cart/**", "/checkout").permitAll()
+                                 "/instructores", "/galeria", "/eventos", "/cart", "/cart/**", "/checkout", "/institucional").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMINISTRADOR")
+                .requestMatchers("/empleado/**").hasAnyRole("EMPLEADO","ADMINISTRADOR")
                 .requestMatchers("/instructor/**").hasRole("INSTRUCTOR")
                 .requestMatchers("/estudiante/**").hasRole("ALUMNO")
                 .anyRequest().permitAll()

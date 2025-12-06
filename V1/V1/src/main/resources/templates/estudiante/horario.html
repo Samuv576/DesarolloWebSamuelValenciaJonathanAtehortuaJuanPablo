@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-      th:replace="base :: base('Mi Horario | Patín Pro', ~{::content})">
+      th:replace="base :: base('Mi Horario | Patin Pro', ~{::content})">
 <th:block th:fragment="content">
-<div class="container my-5">
+<div class="container my-5 text-dark">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 fw-bold text-dark mb-0">Mi Horario</h1>
         <a class="btn btn-outline-primary" th:href="@{/estudiante/dashboard}"><i class="bi bi-arrow-left"></i> Volver al dashboard</a>
     </div>
     
     <header class="text-center mb-5 pb-3">
-        <h1 class="display-4 fw-bold text-uppercase">Mi Horario de Clases</h1>
-        <p class="lead text-muted">A continuación, encontrarás el detalle de las clases en las que estás actualmente inscrito.</p>
-        <span class="badge bg-primary fs-6 py-2 px-3 mt-2">Nivel Asignado: INTERMEDIO</span>
+        <h1 class="display-5 fw-bold text-uppercase text-dark">Clases inscritas</h1>
+        <p class="lead text-muted">Solo ves las clases en las que estás matriculado.</p>
+        <span class="badge bg-primary fs-6 py-2 px-3 mt-2 text-white" th:text="'Nivel Asignado: ' + ${estudiante != null ? estudiante.nivel : 'N/D'}">Nivel</span>
+        <div class="alert alert-warning mt-3" th:if="${sinEstudiante}">Tu usuario no tiene perfil de estudiante. Contacta al administrador.</div>
     </header>
 
     <div class="row justify-content-center">
@@ -26,43 +27,32 @@
                             <thead>
                                 <tr class="table-light">
                                     <th scope="col" class="fw-bold">Clase</th>
-                                    <th scope="col" class="fw-bold">Día</th>
+                                    <th scope="col" class="fw-bold">Días</th>
                                     <th scope="col" class="fw-bold">Hora</th>
                                     <th scope="col" class="fw-bold">Instructor</th>
                                     <th scope="col" class="fw-bold">Cupo</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Técnica Freestyle: Slalom Básico</td>
-                                    <td>Lunes</td>
-                                    <td>18:00 - 19:00</td>
-                                    <td>Lucas Martín</td>
-                                    <td>15 / 20</td>
+                                <tr th:each="ins : ${inscripciones}">
+                                    <td th:text="${ins.clase.nombre}">Clase</td>
+                                    <td th:text="${ins.clase.diasSemana}">Dias</td>
+                                    <td th:text="${ins.clase.horaInicio + ' - ' + ins.clase.horaFin}">Hora</td>
+                                    <td th:text="${ins.clase.instructor != null ? ins.clase.instructor.nombre : 'N/D'}">Instructor</td>
+                                    <td th:text="${ins.clase.cupo}">Cupo</td>
                                 </tr>
-                                <tr>
-                                    <td>Control de Velocidad y Frenado Avanzado</td>
-                                    <td>Miércoles</td>
-                                    <td>19:00 - 20:00</td>
-                                    <td>Daniel Soto</td>
-                                    <td>18 / 25</td>
+                                <tr th:if="${#lists.isEmpty(inscripciones)}">
+                                    <td colspan="5" class="text-center text-muted">No tienes clases inscritas.</td>
                                 </tr>
-                                <tr>
-                                    <td>Coreografía Artística (Quads)</td>
-                                    <td>Sábado</td>
-                                    <td>10:00 - 11:00</td>
-                                    <td>Sofía Ríos</td>
-                                    <td>12 / 15</td>
-                                </tr>
-                                </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             
             <div class="text-center mt-4 p-4 bg-light rounded-3">
-                <p class="lead mb-2">¿Quieres agregar más clases o cambiar tu horario?</p>
-                <a href="/contacto" class="btn btn-outline-dark fw-bold">Contactar a Administración</a>
+                <p class="lead mb-2 text-dark">¿Quieres agregar más clases o cambiar tu horario?</p>
+                <a th:href="@{/contactar}" class="btn btn-outline-dark fw-bold">Contactar a Administración</a>
             </div>
         </div>
     </div>

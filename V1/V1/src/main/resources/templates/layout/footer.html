@@ -51,6 +51,9 @@
                     <li sec:authorize="hasRole('ADMINISTRADOR')"><a th:href="@{/admin/horarios}" class="text-decoration-none footer-link">Horarios</a></li>
                     <li sec:authorize="hasRole('ADMINISTRADOR')"><a th:href="@{/admin/pagos}" class="text-decoration-none footer-link">Pagos</a></li>
                     <li sec:authorize="hasRole('ADMINISTRADOR')"><a th:href="@{/admin/instructores}" class="text-decoration-none footer-link">Instructores</a></li>
+                    <li sec:authorize="hasRole('ADMINISTRADOR')"><a th:href="@{/admin/empleados}" class="text-decoration-none footer-link">Empleados</a></li>
+                    <li class="mb-1 mt-2" sec:authorize="hasAnyRole('EMPLEADO','ADMINISTRADOR')"><span class="fw-bold text-white">Empleado</span></li>
+                    <li sec:authorize="hasAnyRole('EMPLEADO','ADMINISTRADOR')"><a th:href="@{/empleado/productos}" class="text-decoration-none footer-link">Gestión Productos</a></li>
                 </ul>
             </div>
 

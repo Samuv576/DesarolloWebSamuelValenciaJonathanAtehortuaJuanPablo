@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.Patinaje.V1.infrastructure.adapter.out.persistence.jpa.EmployeeEntity;
+import com.Patinaje.V1.infrastructure.adapter.out.persistence.jpa.EmployeeJpaRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +25,7 @@ public class UserDataLoader {
     CommandLineRunner seedUsers(UserJpaRepository userRepo,
                                 StudentJpaRepository studentRepo,
                                 InstructorJpaRepository instructorRepo,
+                                EmployeeJpaRepository employeeRepo,
                                 ClassJpaRepository classRepo,
                                 PaymentJpaRepository paymentRepo,
                                 EnrollmentJpaRepository enrollmentRepo,
@@ -42,6 +45,9 @@ public class UserDataLoader {
             var alumnoUser = ensureUser(userRepo, encoder, "alumno", "alumno123", Role.ALUMNO);
             ensureUser(userRepo, encoder, "alumno2", "alumno123", Role.ALUMNO);
             var alumno3User = ensureUser(userRepo, encoder, "alumno3", "alumno123", Role.ALUMNO);
+
+            var empleadoUser = ensureUser(userRepo, encoder, "empleado", "empleado123", Role.EMPLEADO);
+            ensureEmployee(employeeRepo, "Empleado Demo", "empleado@demo.com", "3000000002", empleadoUser.getUsername());
 
             var instructor = ensureInstructor(instructorRepo,
                     "I123", "Instructor Demo", LocalDate.of(1990, 1, 1), Genero.MASCULINO,
@@ -119,6 +125,23 @@ public class UserDataLoader {
                 .role(role)
                 .enabled(true)
                 .build()));
+    }
+
+    private void ensureEmployee(EmployeeJpaRepository repo,
+                                String nombre,
+                                String correo,
+                                String telefono,
+                                String username) {
+        if (repo.existsByUsername(username)) {
+            return;
+        }
+        repo.save(EmployeeEntity.builder()
+                .nombre(nombre)
+                .correo(correo)
+                .telefono(telefono)
+                .username(username)
+                .activo(true)
+                .build());
     }
 
     private InstructorEntity ensureInstructor(InstructorJpaRepository repo,

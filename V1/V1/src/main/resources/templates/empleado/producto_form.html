@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Producto | Empleado', ~{::content})">
+<th:block th:fragment="content">
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h4 fw-bold mb-1" th:text="${isEdit} ? 'Editar producto' : 'Nuevo producto'">Producto</h1>
+            <p class="text-muted mb-0">Completa la informacion y sube la imagen.</p>
+        </div>
+        <a th:href="@{/empleado/productos}" class="btn btn-outline-secondary">Volver</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form th:action="@{/empleado/productos/save}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" th:value="${producto.id}">
+                <input type="hidden" name="imagenActual" th:value="${producto.imagenUrl}">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Nombre</label>
+                        <input class="form-control" name="nombre" th:value="${producto.nombre}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Categoria</label>
+                        <input class="form-control" name="categoria" th:value="${producto.categoria}" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Descripcion</label>
+                        <textarea class="form-control" name="descripcion" rows="3" th:text="${producto.descripcion}" required></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Precio</label>
+                        <input class="form-control" type="number" min="0" step="0.01" name="precio" th:value="${producto.precio}" required>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center">
+                        <div class="form-check mt-4">
+                            <input class="form-check-input" type="checkbox" name="requiereEnvio" value="true" th:checked="${producto.requiereEnvio}">
+                            <input type="hidden" name="_requiereEnvio" value="on">
+                            <label class="form-check-label">Requiere envio</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Imagen (se guardara en /images)</label>
+                        <input class="form-control" type="file" name="imagenArchivo" accept="image/*">
+                        <small class="text-muted">Se almacena la ruta en BD.</small>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Vista previa</label>
+                        <div class="border rounded p-2 d-flex align-items-center justify-content-center" style="height:120px;">
+                            <img th:if="${producto.imagenUrl}" th:src="${producto.imagenUrl}" alt="prev" style="max-height:100%; max-width:100%;">
+                            <span th:unless="${producto.imagenUrl}" class="text-muted">Sin imagen</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 d-flex justify-content-end gap-2">
+                    <a th:href="@{/empleado/productos}" class="btn btn-outline-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

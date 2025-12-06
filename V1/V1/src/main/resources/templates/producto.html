@@ -1,139 +1,85 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-      th:replace="base :: base('Detalle Patines PRO-Glide | Ecommerce', ~{::content})">
+      th:replace="base :: base(${producto.nombre} + ' | Producto', ~{::content})">
 <th:block th:fragment="content">
     <div style="height: 80px;"></div>
 
     <section class="py-5">
         <div class="container p-5 rounded-3 shadow-lg bg-white text-dark">
             <div class="row">
-                
+
                 <div class="col-md-6 mb-4 mb-md-0">
                     <div class="card p-3 border-0 bg-white text-dark shadow-sm">
-                        <img id="main-product-image" src="https://placehold.co/600x600/FF5722/white?text=Patines+PRO-Glide" class="img-fluid rounded-3" alt="Patines Urbanos de Alto Rendimiento">
-                    </div>
-                    <div class="d-flex justify-content-start mt-3 gap-2">
-                        <img src="https://placehold.co/100x100/FF5722/white?text=Patines+Lateral" class="img-thumbnail rounded-3 p-1 border-primary" style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;" alt="Miniatura Lateral">
-                        <img src="https://placehold.co/100x100/2C3E50/white?text=Patines+Detalle" class="img-thumbnail rounded-3 p-1" style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;" alt="Miniatura Detalle de Ruedas">
-                        <img src="https://placehold.co/100x100/34495E/white?text=Patines+Bota" class="img-thumbnail rounded-3 p-1" style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;" alt="Miniatura Detalle Bota">
+                        <img id="main-product-image"
+                             th:src="${#strings.isEmpty(producto.imagenUrl)} ? 'https://placehold.co/600x600?text=Producto' : ${producto.imagenUrl}"
+                             src="https://placehold.co/600x600?text=Producto"
+                             class="img-fluid rounded-3"
+                             th:alt="${producto.nombre}"
+                             alt="Producto">
                     </div>
                 </div>
 
-                <div class="col-md-6 text-dark"> 
-                    <p class="text-secondary small fw-bold mb-1">Categoría: Patines / Freeskate</p>
-                    <h1 class="display-5 mb-3 fw-bold text-dark">Patines Urbanos PRO-Glide X5</h1>
-                    
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="text-warning me-2">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
-                        </div>
-                        <span class="small text-muted">(245 Opiniones)</span>
-                    </div>
+                <div class="col-md-6 text-dark">
+                    <p class="text-secondary small fw-bold mb-1" th:text="'Categoria: ' + ${producto.categoria}">Categoria</p>
+                    <h1 class="display-5 mb-3 fw-bold text-dark" th:text="${producto.nombre}">Nombre de producto</h1>
 
                     <h2 class="mb-4">
-                        <span class="text-primary display-6 fw-bold">$219.99</span>
-                        <del class="text-muted ms-3 fs-5">$300.00</del>
+                        <span class="text-primary display-6 fw-bold" th:text="'$' + ${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 0, 'POINT')}">$0</span>
                     </h2>
-                    
-                    <p class="lead text-muted">Diseñados para el patinaje urbano y freeskate. Bota rígida de alta resistencia y rodamientos ABEC-9 para velocidad y durabilidad. </p>
-                    
+
+                    <p class="lead text-muted" th:text="${producto.descripcion}">Descripcion del producto.</p>
+
                     <hr class="my-4">
 
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold text-dark">Talla (EUR)</label>
-                            <select class="form-select rounded-3">
-                                <option>38</option>
-                                <option>40</option>
-                                <option selected>42</option>
-                                <option>44</option>
-                                <option>46</option>
-                            </select>
+                    <form th:action="@{/cart/add}" method="post" class="mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <input type="hidden" name="productId" th:value="${producto.id}"/>
+                            <input type="number" name="qty" value="1" min="1" class="form-control rounded-3 me-3" style="width: 80px;">
+                            <button type="submit" class="btn btn-primary btn-lg flex-grow-1 me-2 rounded-pill">
+                                <i class="bi bi-cart-plus-fill me-2"></i>Agregar al carrito
+                            </button>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold text-dark">Color</label>
-                            <select class="form-select rounded-3">
-                                <option>Negro Metálico</option>
-                                <option>Gris Espacial</option>
-                                <option>Naranja Edición Limitada</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-center mb-4">
-                        <input type="number" value="1" min="1" class="form-control rounded-3 me-3" style="width: 80px;">
-                        <button class="btn btn-primary btn-lg flex-grow-1 me-2 rounded-pill">
-                            <i class="bi bi-cart-plus-fill me-2"></i>Añadir al Carrito
-                        </button>
-                        <button class="btn btn-dark btn-lg rounded-circle" data-bs-toggle="tooltip" title="Añadir a lista de deseos">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                    </div>
+                    </form>
 
                     <div class="d-flex align-items-center small text-muted">
                         <i class="bi bi-check-circle-fill text-success me-2 fs-5"></i>
-                        <span>En Stock. Envío gratis en 48 horas.</span>
+                        <span th:text="${producto.requiereEnvio} ? 'Incluye envio disponible' : 'Entrega digital/presencial, no requiere envio'">Disponibilidad</span>
                     </div>
                 </div>
             </div>
-            
+
             <hr class="my-5">
 
             <div class="row">
                 <div class="col-12">
                     <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-desc-tab" data-bs-toggle="pill" data-bs-target="#pills-desc" type="button" role="tab" aria-controls="pills-desc" aria-selected="true">Descripción Completa</button>
+                            <button class="nav-link active" id="pills-desc-tab" data-bs-toggle="pill" data-bs-target="#pills-desc" type="button" role="tab" aria-controls="pills-desc" aria-selected="true">Descripcion</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-specs-tab" data-bs-toggle="pill" data-bs-target="#pills-specs" type="button" role="tab" aria-controls="pills-specs" aria-selected="false">Especificaciones Técnicas</button>
+                            <button class="nav-link" id="pills-info-tab" data-bs-toggle="pill" data-bs-target="#pills-info" type="button" role="tab" aria-controls="pills-info" aria-selected="false">Informacion</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews" type="button" role="tab" aria-controls="pills-reviews" aria-selected="false">Opiniones (245)</button>
+                            <button class="nav-link" id="pills-envio-tab" data-bs-toggle="pill" data-bs-target="#pills-envio" type="button" role="tab" aria-controls="pills-envio" aria-selected="false">Envio</button>
                         </li>
                     </ul>
                     <div class="tab-content border p-4 rounded-3 bg-light text-dark" id="pills-tabContent">
-                        
+
                         <div class="tab-pane fade show active" id="pills-desc" role="tabpanel" aria-labelledby="pills-desc-tab" tabindex="0">
-                            <h4 class="text-primary mb-3">Velocidad, Precisión y Resistencia para la Ciudad</h4>
-                            <p>Los Patines PRO-Glide X5 están construidos para soportar el desgaste del patinaje urbano intensivo. La bota externa, fabricada con polímero de alta densidad, ofrece un soporte lateral superior y una transferencia de potencia eficiente. El botín interior de espuma de memoria garantiza un ajuste cómodo y seguro, minimizando los puntos de presión durante largas sesiones.</p>
-                            <p>El frame de aluminio extruido es ligero pero increíblemente rígido, asegurando que toda tu energía se dirija a la velocidad. Ideales para conos, saltos y movimientos de precisión.</p>
+                            <p th:text="${producto.descripcion}">Detalle del producto.</p>
                         </div>
-                        
-                        <div class="tab-pane fade" id="pills-specs" role="tabpanel" aria-labelledby="pills-specs-tab" tabindex="0">
+
+                        <div class="tab-pane fade" id="pills-info" role="tabpanel" aria-labelledby="pills-info-tab" tabindex="0">
                             <ul class="list-unstyled">
-                                <li><strong class="text-primary">Bota:</strong> Rígida de Polímero de Alta Densidad</li>
-                                <li><strong class="text-primary">Frame:</strong> Aluminio Extruido CNC (Máx. 80mm)</li>
-                                <li><strong class="text-primary">Ruedas:</strong> Poliuretano 80mm / Dureza 85A</li>
-                                <li><strong class="text-primary">Rodamientos:</strong> ABEC-9 Chrome Steel</li>
-                                <li><strong class="text-primary">Cierre:</strong> Hebilla micrométrica superior, ratchet 45°, cordones</li>
-                                <li><strong class="text-primary">Peso (por patín):</strong> 1.6 kg</li>
+                                <li><strong class="text-primary">Categoria:</strong> <span th:text="${producto.categoria}">Categoria</span></li>
+                                <li><strong class="text-primary">Precio:</strong> <span th:text="'$' + ${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 0, 'POINT')}">$0</span></li>
+                                <li><strong class="text-primary">Tipo:</strong> <span th:text="${producto.requiereEnvio} ? 'Fisico' : 'Digital/presencial'">Tipo</span></li>
                             </ul>
                         </div>
-                        
-                        <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab" tabindex="0">
-                            <h5 class="mb-3">Resumen de Opiniones</h5>
-                            
-                            <div class="d-flex align-items-center mb-2">
-                                <span class="me-2 small">5 Estrellas</span>
-                                <div class="progress flex-grow-1 me-2" style="height: 10px;">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="small text-muted">196</span>
-                            </div>
-                            
-                            <div class="card p-3 my-3 shadow-sm bg-white text-dark">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="mb-0 fw-bold text-dark">Juan P.</h6>
-                                    <div class="text-warning small">
-                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                    </div>
-                                </div>
-                                <p class="small text-muted mb-1">Comprado el 15/05/2024</p>
-                                <p class="mb-0">"La calidad de construcción es superior. El ajuste es firme pero cómodo y la velocidad que alcanzan los ABEC-9 es impresionante. ¡Recomendados para Freeskate!"</p>
-                            </div>
-                            
-                            <button class="btn btn-outline-dark mt-3 rounded-pill">Ver todas las 245 opiniones</button>
+
+                        <div class="tab-pane fade" id="pills-envio" role="tabpanel" aria-labelledby="pills-envio-tab" tabindex="0">
+                            <p th:if="${producto.requiereEnvio}">El producto se envia a todo el pais. Tiempo estimado: 48-72 horas.</p>
+                            <p th:unless="${producto.requiereEnvio}">No requiere envio. Recibiras las instrucciones o acceso de forma digital o presencial.</p>
                         </div>
                     </div>
                 </div>
@@ -143,60 +89,29 @@
 
     <section class="py-5">
         <div class="container">
-            <h2 class="text-center mb-4 text-white">Accesorios Esenciales</h2>
-            <p class="text-center text-muted mb-5">Protege tu equipo y a ti mismo con estos complementos.</p>
+            <h2 class="text-center mb-4 text-white">Tambien te puede interesar</h2>
+            <p class="text-center text-muted mb-5">Productos relacionados de la tienda.</p>
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 
-                <div class="col">
-                    <div class="card product-card">
+                <div class="col" th:each="rel : ${relacionados}">
+                    <div class="card product-card h-100">
                         <div class="product-img-container">
-                            <img src="https://placehold.co/400x400/FF8A65/white?text=CASCO" class="product-img rounded-top" alt="Casco de Patinaje">
+                            <img th:src="${#strings.isEmpty(rel.imagenUrl)} ? 'https://placehold.co/400x400?text=Producto' : ${rel.imagenUrl}"
+                                 src="https://placehold.co/400x400?text=Producto"
+                                 class="product-img rounded-top"
+                                 th:alt="${rel.nombre}"
+                                 alt="Relacionado">
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Casco Integral PRO-SAFE</h5>
-                            <p class="text-primary fw-bold mb-1">$45.00</p>
-                            <a th:href="@{/producto}" class="btn btn-dark btn-sm rounded-pill mt-2">Ver Producto</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col">
-                    <div class="card product-card">
-                        <div class="product-img-container">
-                            <img src="https://placehold.co/400x400/2C3E50/white?text=PROTECCIONES" class="product-img rounded-top" alt="Set de Protecciones">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Set Rodilleras y Muñequeras</h5>
-                            <p class="text-primary fw-bold mb-1">$39.99</p>
-                            <a th:href="@{/producto}" class="btn btn-dark btn-sm rounded-pill mt-2">Ver Producto</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col">
-                    <div class="card product-card">
-                        <div class="product-img-container">
-                            <img src="https://placehold.co/400x400/34495E/white?text=RUEDAS" class="product-img rounded-top" alt="Ruedas de Repuesto">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Ruedas Street 80mm (Pack 4)</h5>
-                            <p class="text-primary fw-bold mb-1">$25.50</p>
-                            <a th:href="@{/producto}" class="btn btn-dark btn-sm rounded-pill mt-2">Ver Producto</a>
+                            <h5 class="card-title fw-bold" th:text="${rel.nombre}">Producto</h5>
+                            <p class="text-primary fw-bold mb-1" th:text="'$' + ${#numbers.formatDecimal(rel.precio, 0, 'COMMA', 0, 'POINT')}">$0</p>
+                            <a th:href="@{/producto/{id}(id=${rel.id})}" class="btn btn-dark btn-sm rounded-pill mt-2">Ver Producto</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="col">
-                    <div class="card product-card">
-                        <div class="product-img-container">
-                            <img src="https://placehold.co/400x400/FF5722/white?text=MOCHILA" class="product-img rounded-top" alt="Mochila Porta-Patines">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Mochila Porta-Patines Urban</h5>
-                            <p class="text-primary fw-bold mb-1">$49.99</p>
-                            <a th:href="@{/producto}" class="btn btn-dark btn-sm rounded-pill mt-2">Ver Producto</a>
-                        </div>
-                    </div>
+                <div class="col-12 text-center text-muted" th:if="${#lists.isEmpty(relacionados)}">
+                    No hay productos relacionados para mostrar.
                 </div>
             </div>
         </div>
@@ -207,18 +122,6 @@
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
             tooltipTriggerList.map(function (tooltipTriggerEl) {
                 return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
-
-            document.querySelectorAll('.img-thumbnail').forEach(thumbnail => {
-                thumbnail.addEventListener('click', function() {
-                    const newSrc = this.getAttribute('src');
-                    const mainImage = document.getElementById('main-product-image');
-                    
-                    mainImage.setAttribute('src', newSrc);
-                    
-                    document.querySelectorAll('.img-thumbnail').forEach(t => t.classList.remove('border-primary'));
-                    this.classList.add('border-primary');
-                });
             });
         });
     </script>

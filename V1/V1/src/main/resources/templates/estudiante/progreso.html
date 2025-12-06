@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-      th:replace="base :: base('Mi Progreso | Patín Pro', ~{::content})">
+      th:replace="base :: base('Mi Progreso | Patin Pro', ~{::content})">
 <th:block th:fragment="content">
-<div class="container my-5">
+<div class="container my-5 text-dark">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 fw-bold text-dark mb-0">Mi Progreso</h1>
         <a class="btn btn-outline-primary" th:href="@{/estudiante/dashboard}"><i class="bi bi-arrow-left"></i> Volver al dashboard</a>
     </div>
     
     <header class="text-center mb-5 pb-3">
-        <h1 class="display-4 fw-bold text-uppercase">Mi Progreso de Patinaje</h1>
-        <p class="lead text-muted">Revisa las observaciones de tus instructores sobre tu Control, Velocidad, Equilibrio y Frenado.</p>
+        <h1 class="display-5 fw-bold text-uppercase text-dark">Historial de Evaluación</h1>
+        <p class="lead text-muted">Solo ves las observaciones registradas sobre ti.</p>
+        <div class="alert alert-warning mt-3" th:if="${sinEstudiante}">Tu usuario no tiene perfil de estudiante. Contacta al administrador.</div>
     </header>
 
     <div class="row justify-content-center">
@@ -21,52 +22,30 @@
                 </div>
                 <div class="card-body p-4">
                     
-                    <div class="border-start border-primary border-4 ps-3 mb-4 timeline-item">
-                        <h5 class="fw-bold text-light mb-1">01 de Diciembre de 2025</h5>
-                        <p class="small text-muted mb-2">Evaluado por: Lucas Martín (Clase Freestyle)</p>
-                        
+                    <div th:each="obs : ${observaciones}" class="border-start border-primary border-4 ps-3 mb-4 timeline-item">
+                        <h5 class="fw-bold text-dark mb-1" th:text="${#temporals.format(obs.fecha, 'dd MMM yyyy')}">Fecha</h5>
+                        <p class="small text-muted mb-2">
+                            Evaluado por: <span th:text="${obs.instructor != null ? obs.instructor.nombre : 'Instructor'}">Instructor</span>
+                        </p>
                         <div class="row row-cols-md-2 g-2 small">
                             <div class="col">
-                                <span class="fw-semibold">Control:</span> Excelente. Mantiene el centro de gravedad en giros rápidos.
+                                <span class="fw-semibold">Control:</span> <span th:text="${obs.control}">0</span>/10
                             </div>
                             <div class="col">
-                                <span class="fw-semibold">Velocidad:</span> Requiere práctica en sprints largos para mantener la cadencia.
+                                <span class="fw-semibold">Velocidad:</span> <span th:text="${obs.velocidad}">0</span>/10
                             </div>
                             <div class="col">
-                                <span class="fw-semibold">Equilibrio:</span> Mejorado notablemente en el *one-foot glide*.
+                                <span class="fw-semibold">Equilibrio:</span> <span th:text="${obs.equilibrio}">0</span>/10
                             </div>
                             <div class="col">
-                                <span class="fw-semibold">Frenado:</span> El frenado en T debe ser más rápido y menos brusco.
+                                <span class="fw-semibold">Frenado:</span> <span th:text="${obs.frenado}">0</span>/10
                             </div>
                         </div>
-                    </div>
-                    
-                    <hr>
-
-                    <div class="border-start border-secondary border-4 ps-3 mb-4 timeline-item">
-                        <h5 class="fw-bold text-light mb-1">15 de Noviembre de 2025</h5>
-                        <p class="small text-muted mb-2">Evaluado por: Sofía Ríos (Clase Artística)</p>
-                        
-                        <div class="row row-cols-md-2 g-2 small">
-                            <div class="col">
-                                <span class="fw-semibold">Control:</span> Muy buen control en patines *quads*. Postura elegante.
-                            </div>
-                            <div class="col">
-                                <span class="fw-semibold">Velocidad:</span> Adecuada para el nivel. Enfocarse en mantener la velocidad en transiciones.
-                            </div>
-                            <div class="col">
-                                <span class="fw-semibold">Equilibrio:</span> Necesita reforzar el equilibrio al cambiar de dirección.
-                            </div>
-                            <div class="col">
-                                <span class="fw-semibold">Frenado:</span> Uso inconsistente del *toe stop* (freno delantero).
-                            </div>
-                        </div>
+                        <p class="mt-3 text-muted" th:text="${obs.nota}">Observación</p>
                     </div>
 
-                    <hr>
-                    
-                    <div class="mt-4 p-3 bg-light rounded-3 small text-dark text-center">
-                        <p class="mb-0">⚠️ Restricción de Sistema: Por Regla 7, las observaciones pasadas no pueden ser modificadas; solo el instructor puede agregar nuevos registros.</p>
+                    <div class="alert alert-info" th:if="${#lists.isEmpty(observaciones)}">
+                        No tienes observaciones registradas aún.
                     </div>
 
                 </div>

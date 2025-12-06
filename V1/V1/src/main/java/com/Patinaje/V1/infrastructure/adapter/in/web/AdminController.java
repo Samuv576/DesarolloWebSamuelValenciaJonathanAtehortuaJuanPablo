@@ -24,6 +24,8 @@ import com.Patinaje.V1.domain.model.Nivel;
 import com.Patinaje.V1.domain.model.Role;
 import com.Patinaje.V1.infrastructure.adapter.out.persistence.jpa.UserEntity;
 import com.Patinaje.V1.infrastructure.adapter.out.persistence.jpa.UserJpaRepository;
+import com.Patinaje.V1.infrastructure.adapter.out.persistence.jpa.EmployeeEntity;
+import com.Patinaje.V1.infrastructure.adapter.out.persistence.jpa.EmployeeJpaRepository;
 import com.Patinaje.V1.infrastructure.adapter.out.persistence.jpa.ClassEntity;
 import com.Patinaje.V1.infrastructure.adapter.out.persistence.jpa.ClassJpaRepository;
 import com.Patinaje.V1.infrastructure.adapter.out.persistence.jpa.EnrollmentEntity;
@@ -51,6 +53,7 @@ public class AdminController {
     private final EnrollmentJpaRepository enrollmentRepo;
     private final PaymentJpaRepository paymentRepo;
     private final UserJpaRepository userRepo;
+    private final EmployeeJpaRepository employeeRepo;
     private final LoginAttemptService attemptService;
     private final PasswordEncoder passwordEncoder;
 
@@ -60,6 +63,7 @@ public class AdminController {
                            EnrollmentJpaRepository enrollmentRepo,
                            PaymentJpaRepository paymentRepo,
                            UserJpaRepository userRepo,
+                           EmployeeJpaRepository employeeRepo,
                            LoginAttemptService attemptService,
                            PasswordEncoder passwordEncoder) {
         this.studentRepo = studentRepo;
@@ -68,6 +72,7 @@ public class AdminController {
         this.enrollmentRepo = enrollmentRepo;
         this.paymentRepo = paymentRepo;
         this.userRepo = userRepo;
+        this.employeeRepo = employeeRepo;
         this.attemptService = attemptService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -163,6 +168,80 @@ public class AdminController {
     public String eliminarInstructor(@PathVariable Long id) {
         instructorRepo.deleteById(id);
         return "redirect:/admin/instructores";
+    }
+
+    // Empleados (gestion de productos)
+    @GetMapping("/empleados")
+    @Operation(summary = "Listar empleados")
+    public String empleados(Model model) {
+        model.addAttribute("empleados", employeeRepo.findAll());
+        return "admin/empleados";
+    }
+
+    @GetMapping("/empleados/new")
+    @Operation(summary = "Formulario nuevo empleado")
+    public String nuevoEmpleado(Model model) {
+        EmployeeEntity empleado = new EmployeeEntity();
+        empleado.setActivo(true);
+        model.addAttribute("empleado", empleado);
+        model.addAttribute("isEdit", false);
+        return "admin/empleado_form";
+    }
+
+    @GetMapping("/empleados/{id}/edit")
+    @Operation(summary = "Editar empleado")
+    public String editarEmpleado(@PathVariable Long id, Model model) {
+        EmployeeEntity empleado = employeeRepo.findById(id).orElse(null);
+        if (empleado == null) return "redirect:/admin/empleados";
+        model.addAttribute("empleado", empleado);
+        model.addAttribute("isEdit", true);
+        return "admin/empleado_form";
+    }
+
+    @PostMapping("/empleados/save")
+    @Operation(summary = "Guardar empleado y su usuario EMPLEADO")
+    public String guardarEmpleado(EmployeeEntity empleado,
+                                  @RequestParam(name = "password", required = false) String password,
+                                  @RequestParam(name = "oldUsername", required = false) String oldUsername) {
+        boolean creando = empleado.getId() == null;
+
+        if (!creando && oldUsername != null && !oldUsername.isBlank() && !oldUsername.equals(empleado.getUsername())) {
+            // Evita cambiar username en edicion para no desalinear credenciales
+            empleado.setUsername(oldUsername);
+        }
+
+        if (empleado.getCorreo() == null) empleado.setCorreo("");
+        if (empleado.getTelefono() == null) empleado.setTelefono("");
+        employeeRepo.save(empleado);
+
+        UserEntity user = userRepo.findByUsername(empleado.getUsername()).orElse(null);
+        if (user == null) {
+            String raw = (password != null && !password.isBlank()) ? password : empleado.getUsername() + "123";
+            user = UserEntity.builder()
+                    .username(empleado.getUsername())
+                    .password(passwordEncoder.encode(raw))
+                    .role(Role.EMPLEADO)
+                    .enabled(empleado.isActivo())
+                    .build();
+        } else {
+            if (password != null && !password.isBlank()) {
+                user.setPassword(passwordEncoder.encode(password));
+            }
+            user.setRole(Role.EMPLEADO);
+            user.setEnabled(empleado.isActivo());
+        }
+        userRepo.save(user);
+        return "redirect:/admin/empleados";
+    }
+
+    @PostMapping("/empleados/{id}/delete")
+    @Operation(summary = "Eliminar empleado y su usuario")
+    public String eliminarEmpleado(@PathVariable Long id) {
+        employeeRepo.findById(id).ifPresent(emp -> {
+            employeeRepo.deleteById(id);
+            userRepo.findByUsername(emp.getUsername()).ifPresent(userRepo::delete);
+        });
+        return "redirect:/admin/empleados";
     }
 
     // Clases / Horarios

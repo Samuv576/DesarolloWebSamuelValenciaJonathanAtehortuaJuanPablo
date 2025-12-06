@@ -3,7 +3,7 @@
       th:replace="base :: base('Tienda | Skate Pro', ~{::content})">
 <th:block th:fragment="content">
 <div class="container my-5">
-    <h1 class="display-4 fw-bold mb-5 text-center text-uppercase">Explora Nuestro Catálogo</h1>
+    <h1 class="display-4 fw-bold mb-5 text-center text-uppercase">Explora Nuestro Catalogo</h1>
     
     <div class="row">
         
@@ -11,169 +11,93 @@
             <aside class="sticky-top sidebar-filtros">
                 <h4 class="mb-3 fw-bold">Filtrar Productos</h4>
                 
-                <div class="mb-4 p-3 border rounded shadow-sm">
-                    <h6 class="fw-bold text-uppercase text-primary">Categoría</h6>
-                    <ul class="list-unstyled small mt-2">
-                        <li><a href="#" class="text-decoration-none d-block py-1">Tablas Completas (12)</a></li>
-                        <li><a href="#" class="text-decoration-none d-block py-1">Decks (8)</a></li>
-                        <li><a href="#" class="text-decoration-none d-block py-1">Ruedas y Rodamientos (15)</a></li>
-                        <li><a href="#" class="text-decoration-none d-block py-1">Protección (5)</a></li>
-                    </ul>
-                </div>
-
-                <div class="mb-4 p-3 border rounded shadow-sm">
-                    <h6 class="fw-bold text-uppercase text-primary">Precio</h6>
-                    <input type="range" class="form-range" min="10" max="500" step="10" id="priceRange">
-                    <div class="d-flex justify-content-between small">
-                        <span>$10</span>
-                        <span>$500</span>
+                <form th:action="@{/tienda}" method="get" class="mb-4 p-3 border rounded shadow-sm">
+                    <h6 class="fw-bold text-uppercase text-primary">Categoria</h6>
+                    <div class="mt-2">
+                        <select name="categoria" class="form-select form-select-sm">
+                            <option value="" th:selected="${selectedCategoria == ''}">Todas</option>
+                            <option th:each="cat : ${categories}"
+                                    th:value="${cat}"
+                                    th:text="${cat}"
+                                    th:selected="${cat == selectedCategoria}">
+                            </option>
+                        </select>
                     </div>
-                </div>
-
-                <button class="btn btn-outline-secondary w-100 btn-sm">Limpiar Filtros</button>
-
+                    <input type="hidden" name="sort" th:value="${sort}">
+                    <button class="btn btn-primary w-100 btn-sm mt-3" type="submit">Aplicar filtros</button>
+                    <a th:href="@{/tienda(sort=${sort})}" class="btn btn-outline-secondary w-100 btn-sm mt-2">Limpiar filtros</a>
+                </form>
             </aside>
         </div>
         
         <div class="col-lg-9">
             <div class="row mb-4 align-items-center">
                 <div class="col-md-6">
-                    <p class="text-muted small mb-0">Mostrando 1-12 de 40 resultados</p>
+                    <p class="text-muted small mb-0">
+                        Mostrando <span th:text="${startItem}">0</span>-<span th:text="${endItem}">0</span> de <span th:text="${totalProducts}">0</span> productos
+                    </p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <select class="form-select form-select-sm d-inline-block w-auto">
-                        <option selected>Ordenar por Novedad</option>
-                        <option value="1">Precio: Bajo a Alto</option>
-                        <option value="2">Precio: Alto a Bajo</option>
-                    </select>
+                    <form th:action="@{/tienda}" method="get" class="d-inline-block">
+                        <input type="hidden" name="categoria" th:value="${selectedCategoria}">
+                        <input type="hidden" name="page" th:value="${currentPage}">
+                        <input type="hidden" name="size" th:value="${pageSize}">
+                        <select name="sort" class="form-select form-select-sm d-inline-block w-auto" onchange="this.form.submit()">
+                            <option value="nuevo" th:selected="${sort == 'nuevo'}">Ordenar por novedad</option>
+                            <option value="precioAsc" th:selected="${sort == 'precioAsc'}">Precio: bajo a alto</option>
+                            <option value="precioDesc" th:selected="${sort == 'precioDesc'}">Precio: alto a bajo</option>
+                        </select>
+                    </form>
                 </div>
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                
-                <div class="col">
+                <div class="col" th:each="producto : ${products}">
                     <div class="card h-100 border-0 shadow-sm product-card">
                         <div class="product-img-container">
-                            <img th:src="@{/images/canariam.png}" src="/images/canariam.png" class="card-img-top product-img" alt="Patines Canariam Onix">
+                            <img th:src="${#strings.isEmpty(producto.imagenUrl)} ? 'https://placehold.co/400x400?text=Producto' : ${producto.imagenUrl}"
+                                 src="/images/canariam.png"
+                                 class="card-img-top product-img"
+                                 th:alt="${producto.nombre}"
+                                 alt="Producto">
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Canariam Onix</h5>
-                            <p class="card-text text-muted small mb-1">Categoría: Patines</p>
-                            <p class="fs-5 fw-bold text-primary">$219.99</p>
+                            <h5 class="card-title fw-bold" th:text="${producto.nombre}">Producto</h5>
+                            <p class="card-text text-muted small mb-1" th:text="'Categoria: ' + ${producto.categoria}">Categoria</p>
+                            <p class="fs-5 fw-bold text-primary" th:text="'$' + ${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 0, 'POINT')}">$0</p>
+                            <div class="small text-muted" th:text="${producto.requiereEnvio} ? 'Requiere envio' : 'Digital / presencial'">Envio</div>
                             <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
-                                <input type="hidden" name="productId" value="1"/>
+                                <input type="hidden" name="productId" th:value="${producto.id}"/>
                                 <input type="hidden" name="qty" value="1"/>
                                 <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
-                                <a th:href="@{/producto}" class="btn btn-sm btn-outline-primary">Ver</a>
+                                <a th:href="@{/producto/{id}(id=${producto.id})}" class="btn btn-sm btn-outline-primary">Ver</a>
                             </form>
                         </div>
                     </div>
                 </div>
 
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm product-card">
-                        <div class="product-img-container">
-                            <img th:src="@{/images/ruedas.png}" src="/images/ruedas.png" class="card-img-top product-img" alt="Ruedas 80mm">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Ruedas X4 80mm</h5>
-                            <p class="card-text text-muted small mb-1">Categoría: Ruedas</p>
-                            <p class="fs-5 fw-bold text-primary">$45.00</p>
-                            <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
-                                <input type="hidden" name="productId" value="2"/>
-                                <input type="hidden" name="qty" value="1"/>
-                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
-                                <a th:href="@{/producto}" class="btn btn-sm btn-outline-primary">Ver</a>
-                            </form>
-                        </div>
-                    </div>
+                <div class="col-12 text-center text-muted" th:if="${#lists.isEmpty(products)}">
+                    No hay productos disponibles en este momento.
                 </div>
-
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm product-card">
-                        <div class="product-img-container">
-                            <img th:src="@{/images/proteccion.png}" src="/images/proteccion.png" class="card-img-top product-img" alt="Kit de Protección">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Kit Protección Pro</h5>
-                            <p class="card-text text-muted small mb-1">Categoría: Seguridad</p>
-                            <p class="fs-5 fw-bold text-primary">$59.99</p>
-                            <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
-                                <input type="hidden" name="productId" value="3"/>
-                                <input type="hidden" name="qty" value="1"/>
-                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
-                                <a th:href="@{/producto}" class="btn btn-sm btn-outline-primary">Ver</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm product-card">
-                        <div class="product-img-container">
-                            <img th:src="@{/images/dominio.png}" src="/images/dominio.png" class="card-img-top product-img" alt="Curso Dominio">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Curso Dominio</h5>
-                            <p class="card-text text-muted small mb-1">Categoría: Clases</p>
-                            <p class="fs-5 fw-bold text-primary">$120.00</p>
-                            <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
-                                <input type="hidden" name="productId" value="4"/>
-                                <input type="hidden" name="qty" value="1"/>
-                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
-                                <a th:href="@{/clases}" class="btn btn-sm btn-outline-primary">Ver</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm product-card">
-                        <div class="product-img-container">
-                            <img th:src="@{/images/comunidad.png}" src="/images/comunidad.png" class="card-img-top product-img" alt="Membresía Comunidad">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Membresía Comunidad</h5>
-                            <p class="card-text text-muted small mb-1">Categoría: Comunidad</p>
-                            <p class="fs-5 fw-bold text-primary">$39.99</p>
-                            <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
-                                <input type="hidden" name="productId" value="5"/>
-                                <input type="hidden" name="qty" value="1"/>
-                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
-                                <a th:href="@{/comunidad}" class="btn btn-sm btn-outline-primary">Ver</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm product-card">
-                        <div class="product-img-container">
-                            <img th:src="@{/images/calles.png}" src="/images/calles.png" class="card-img-top product-img" alt="Deck Urbano">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Deck Urbano</h5>
-                            <p class="card-text text-muted small mb-1">Categoría: Decks</p>
-                            <p class="fs-5 fw-bold text-primary">$89.99</p>
-                            <form th:action="@{/cart/add}" method="post" class="d-flex gap-2 mt-2">
-                                <input type="hidden" name="productId" value="6"/>
-                                <input type="hidden" name="qty" value="1"/>
-                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1">Agregar</button>
-                                <a th:href="@{/producto}" class="btn btn-sm btn-outline-primary">Ver</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                
             </div>
             
-            <nav class="mt-5">
+            <nav class="mt-5" th:if="${totalPages > 1}">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                    <li class="page-item" th:classappend="${currentPage == 1} ? ' disabled'">
+                        <a class="page-link"
+                           th:href="@{/tienda(page=${currentPage - 1}, sort=${sort}, categoria=${selectedCategoria}, size=${pageSize})}">Anterior</a>
+                    </li>
+                    <li class="page-item"
+                        th:each="i : ${#numbers.sequence(1, totalPages)}"
+                        th:classappend="${i == currentPage} ? ' active'">
+                        <a class="page-link"
+                           th:text="${i}"
+                           th:href="@{/tienda(page=${i}, sort=${sort}, categoria=${selectedCategoria}, size=${pageSize})}">1</a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage == totalPages} ? ' disabled'">
+                        <a class="page-link"
+                           th:href="@{/tienda(page=${currentPage + 1}, sort=${sort}, categoria=${selectedCategoria}, size=${pageSize})}">Siguiente</a>
+                    </li>
                 </ul>
             </nav>
 

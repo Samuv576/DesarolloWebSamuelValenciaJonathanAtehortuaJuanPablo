@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-      th:replace="base :: base('Pagos | Estudiante | Patín Pro', ~{::content})">
+      th:replace="base :: base('Pagos | Estudiante | Patin Pro', ~{::content})">
 <th:block th:fragment="content">
-<div class="container my-5">
+<div class="container my-5 text-dark">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 fw-bold text-dark mb-0">Pagos de Mensualidad</h1>
         <a class="btn btn-outline-primary" th:href="@{/estudiante/dashboard}"><i class="bi bi-arrow-left"></i> Volver al dashboard</a>
     </div>
     <header class="mb-4 text-center">
-        <p class="text-muted">Aquí puedes registrar tu pago de mensualidad. Los pagos quedan marcados como Pagado.</p>
+        <p class="text-muted">Solo ves tus propios pagos. Se registran como Pagado al enviarlos.</p>
     </header>
 
     <div class="row g-4">
@@ -16,13 +16,11 @@
             <div class="card shadow-lg border-0 bg-white text-dark">
                 <div class="card-header bg-primary text-white fw-bold">Registrar pago</div>
                 <div class="card-body">
-                    <form th:action="@{/estudiante/pagos/pagar}" method="post">
+                    <div class="alert alert-warning" th:if="${sinEstudiante}">Tu usuario no tiene perfil de estudiante. Contacta al administrador.</div>
+                    <form th:if="${!sinEstudiante}" th:action="@{/estudiante/pagos/pagar}" method="post">
                         <div class="mb-3">
-                            <label class="form-label">Selecciona tu nombre</label>
-                            <select class="form-select" name="estudianteId" required>
-                                <option value="" disabled selected>Selecciona</option>
-                                <option th:each="est : ${estudiantes}" th:value="${est.id}" th:text="${est.nombre}"></option>
-                            </select>
+                            <label class="form-label">Estudiante</label>
+                            <input class="form-control" th:value="${estudiante != null ? estudiante.nombre : 'N/D'}" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Monto</label>
@@ -41,7 +39,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-6" th:if="${!sinEstudiante}">
             <div class="card shadow-lg border-0 bg-white text-dark">
                 <div class="card-header bg-dark text-white fw-bold">Pagos realizados</div>
                 <div class="card-body p-0">

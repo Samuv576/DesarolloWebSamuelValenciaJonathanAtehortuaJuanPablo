@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: base('Evento | Empleado', ~{::content})">
+<th:block th:fragment="content">
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h4 fw-bold mb-1">Nuevo evento</h1>
+            <p class="text-muted mb-0">Completa la información del evento.</p>
+        </div>
+        <a th:href="@{/eventos}" class="btn btn-outline-secondary">Volver</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form th:action="@{/empleado/eventos/save}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="imagenActual" th:value="${evento.imagenUrl}">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Titulo</label>
+                        <input class="form-control" name="titulo" th:value="${evento.titulo}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Categoria</label>
+                        <input class="form-control" name="categoria" th:value="${evento.categoria}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Fecha</label>
+                        <input class="form-control" type="date" name="fecha" th:value="${evento.fecha}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Ubicación</label>
+                        <input class="form-control" name="ubicacion" th:value="${evento.ubicacion}" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" name="descripcion" rows="4" th:text="${evento.descripcion}" required></textarea>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center">
+                        <div class="form-check mt-4">
+                            <input class="form-check-input" type="checkbox" name="destacado" value="true" th:checked="${evento.destacado}">
+                            <input type="hidden" name="_destacado" value="on">
+                            <label class="form-check-label">Destacado</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Imagen</label>
+                        <input class="form-control" type="file" name="imagenArchivo" accept="image/*">
+                        <small class="text-muted">Se guarda la ruta en BD y el archivo en /images.</small>
+                    </div>
+                </div>
+                <div class="mt-4 d-flex justify-content-end gap-2">
+                    <a th:href="@{/eventos}" class="btn btn-outline-secondary">Cancelar</a>
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>

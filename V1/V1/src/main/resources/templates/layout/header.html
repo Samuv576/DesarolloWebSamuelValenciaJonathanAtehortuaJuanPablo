@@ -33,7 +33,7 @@
                     </ul>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link text-uppercase fw-bold" th:href="@{/institucional#eventos}">Eventos</a>
+                    <a class="nav-link text-uppercase fw-bold" th:href="@{/eventos}">Eventos</a>
                 </li>
 
                 <li class="nav-item dropdown mx-2" sec:authorize="isAuthenticated()">
@@ -56,7 +56,13 @@
                         <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/estudiantes}">Gestión Estudiantes</a></li>
                         <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/horarios}">Gestión Horarios</a></li>
                         <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/pagos}">Gestión Pagos</a></li>
+                        <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/eventos}">Gestión Eventos</a></li>
+                        <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/empleados}">Gestión Empleados</a></li>
                         <li sec:authorize="hasRole('ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/admin/usuarios}">Gestión Usuarios</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        
+                        <li sec:authorize="hasAnyRole('EMPLEADO','ADMINISTRADOR')"><h6 class="dropdown-header text-info fw-bold">Empleado</h6></li>
+                        <li sec:authorize="hasAnyRole('EMPLEADO','ADMINISTRADOR')"><a class="dropdown-item" th:href="@{/empleado/productos}">Gestión Productos</a></li>
                     </ul>
                 </li>                
             </ul>

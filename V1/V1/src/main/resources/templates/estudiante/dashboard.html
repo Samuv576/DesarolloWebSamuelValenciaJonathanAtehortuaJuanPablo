@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-      th:replace="base :: base('Mi Dashboard | Patín Pro', ~{::content})">
+      th:replace="base :: base('Mi Dashboard | Patin Pro', ~{::content})">
 <th:block th:fragment="content">
-<div class="container my-5">
+<div class="container my-5 text-dark">
     <header class="text-center mb-5 pb-3">
-        <h1 class="display-4 fw-bold">¡Hola, <span th:text="${estudiante != null ? estudiante.nombre : 'Alumno'}">Alumno</span>!</h1>
-        <p class="lead text-muted">Bienvenido a tu portal de progreso y clases de Patín Pro.</p>
-        <span class="badge bg-primary fs-5 py-2 px-3 mt-2">
+        <h1 class="display-4 fw-bold text-dark">¡Hola, <span th:text="${estudiante != null ? estudiante.nombre : 'Alumno'}">Alumno</span>!</h1>
+        <p class="lead text-muted">Bienvenido a tu portal de progreso y clases.</p>
+        <span class="badge bg-primary fs-6 py-2 px-3 mt-2 text-white">
             Nivel Actual: <span th:text="${estudiante != null ? estudiante.nivel : 'N/D'}">NIVEL</span>
         </span>
     </header>
@@ -16,7 +16,7 @@
             <div class="card h-100 p-3 shadow-sm border-0 status-card status-ok">
                 <div class="card-body">
                     <i class="bi bi-wallet2 fs-2 me-3 text-success float-end"></i>
-                    <h5 class="card-title fw-bold">Estado de Pago</h5>
+                    <h5 class="card-title fw-bold text-dark">Estado de Pago</h5>
                     <p class="fs-4 fw-bolder text-success mb-0">AL DÍA</p>
                     <p class="small text-muted mb-0">Próximo pago según tu plan.</p>
                     <a th:href="@{/estudiante/pagos}" class="small fw-semibold text-decoration-none mt-2 d-block">Ver Historial de Pagos →</a>
@@ -28,7 +28,7 @@
             <div class="card h-100 p-3 shadow-sm border-0 status-card">
                 <div class="card-body">
                     <i class="bi bi-calendar-event fs-2 me-3 text-primary float-end"></i>
-                    <h5 class="card-title fw-bold">Próxima Clase</h5>
+                    <h5 class="card-title fw-bold text-dark">Próxima Clase</h5>
                     <p class="fs-4 fw-bolder text-dark mb-0">Consulta tu horario</p>
                     <p class="small text-muted mb-0">Revisa tus inscripciones.</p>
                     <a th:href="@{/estudiante/horario}" class="small fw-semibold text-decoration-none mt-2 d-block">Ver Horario Completo →</a>
@@ -40,7 +40,7 @@
             <div class="card h-100 p-3 shadow-sm border-0 status-card">
                 <div class="card-body">
                     <i class="bi bi-graph-up-arrow fs-2 me-3 text-info float-end"></i>
-                    <h5 class="card-title fw-bold">Progreso</h5>
+                    <h5 class="card-title fw-bold text-dark">Progreso</h5>
                     <p class="fs-4 fw-bolder text-dark mb-0">Actualiza tu avance</p>
                     <p class="small text-muted mb-0">Observaciones registradas en clase.</p>
                     <a th:href="@{/estudiante/progreso}" class="small fw-semibold text-decoration-none mt-2 d-block">Ver Historial →</a>
@@ -50,9 +50,9 @@
     </section>
 
     <section class="p-5 text-center bg-light rounded-3 shadow-sm">
-        <h2 class="fw-bold mb-3">No te pierdas el próximo evento</h2>
+        <h2 class="fw-bold mb-3 text-dark">No te pierdas el próximo evento</h2>
         <p class="lead text-muted">Cupos limitados. Revisa el calendario para más información.</p>
-        <a href="#" class="btn btn-primary btn-lg mt-2">Inscribirme</a>
+        <a th:href="@{/eventos}" class="btn btn-primary btn-lg mt-2">Ver eventos</a>
     </section>
 </div>
 </th:block>

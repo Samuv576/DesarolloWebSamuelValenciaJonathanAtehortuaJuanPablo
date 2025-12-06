@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="base :: base('Eventos | Roller Speed', ~{::content})">
+<th:block th:fragment="content">
+<div style="height: 80px;"></div>
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <p class="text-primary text-uppercase small fw-bold mb-1">Calendario</p>
+                <h1 class="display-5 fw-bold mb-0 text-white">Eventos de la Escuela</h1>
+                <p class="text-muted mb-0">Charlas, torneos, jornadas de evaluación y más.</p>
+            </div>
+            <div class="d-flex gap-2" sec:authorize="hasAnyRole('EMPLEADO','ADMINISTRADOR')">
+                <a th:href="@{/empleado/eventos/new}" class="btn btn-outline-light btn-sm">Nuevo evento</a>
+                <a th:href="@{/admin/eventos}" class="btn btn-primary btn-sm" sec:authorize="hasRole('ADMINISTRADOR')">Panel admin</a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-12" th:if="${#lists.isEmpty(eventos)}">
+                <div class="alert alert-info">No hay eventos registrados.</div>
+            </div>
+
+            <div class="col-md-6" th:each="ev : ${eventos}">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-primary" th:text="${ev.categoria}">Categoria</span>
+                            <span class="badge bg-success" th:if="${ev.destacado}">Destacado</span>
+                        </div>
+                        <h4 class="fw-bold mb-1" th:text="${ev.titulo}">Titulo</h4>
+                        <p class="small text-muted mb-2">
+                            <i class="bi bi-calendar-event me-1"></i>
+                            <span th:text="${#temporals.format(ev.fecha, 'dd/MM/yyyy')}">Fecha</span> |
+                            <i class="bi bi-geo-alt me-1"></i><span th:text="${ev.ubicacion}">Lugar</span>
+                        </p>
+                        <p class="text-muted" th:text="${ev.descripcion}">Descripcion</p>
+                        <img th:if="${ev.imagenUrl}" th:src="${ev.imagenUrl}" alt="Evento" class="img-fluid rounded mt-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</th:block>
+</html>
