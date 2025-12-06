@@ -18,7 +18,7 @@
         <div class="col-lg-10">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-dark text-white fw-bold h5 py-3">
-                    Historial de Evaluación Técnica
+                    Historial de Evaluación
                 </div>
                 <div class="card-body p-4">
                     
@@ -27,20 +27,6 @@
                         <p class="small text-muted mb-2">
                             Evaluado por: <span th:text="${obs.instructor != null ? obs.instructor.nombre : 'Instructor'}">Instructor</span>
                         </p>
-                        <div class="row row-cols-md-2 g-2 small">
-                            <div class="col">
-                                <span class="fw-semibold">Control:</span> <span th:text="${obs.control}">0</span>/10
-                            </div>
-                            <div class="col">
-                                <span class="fw-semibold">Velocidad:</span> <span th:text="${obs.velocidad}">0</span>/10
-                            </div>
-                            <div class="col">
-                                <span class="fw-semibold">Equilibrio:</span> <span th:text="${obs.equilibrio}">0</span>/10
-                            </div>
-                            <div class="col">
-                                <span class="fw-semibold">Frenado:</span> <span th:text="${obs.frenado}">0</span>/10
-                            </div>
-                        </div>
                         <p class="mt-3 text-muted" th:text="${obs.nota}">Observación</p>
                     </div>
 

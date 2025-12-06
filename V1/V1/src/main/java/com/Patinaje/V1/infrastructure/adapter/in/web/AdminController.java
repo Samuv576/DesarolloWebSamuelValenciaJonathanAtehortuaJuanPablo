@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.Patinaje.V1.domain.model.EstadoPago;
 import com.Patinaje.V1.domain.model.EstadoInscripcion;
 import com.Patinaje.V1.domain.model.MedioPago;
+import com.Patinaje.V1.domain.model.Genero;
 import com.Patinaje.V1.domain.model.Nivel;
 import com.Patinaje.V1.domain.model.Role;
 import com.Patinaje.V1.infrastructure.adapter.out.persistence.jpa.UserEntity;
@@ -263,13 +265,19 @@ public class AdminController {
         model.addAttribute("diasConClases", diasConClases);
         model.addAttribute("niveles", Nivel.values());
         model.addAttribute("daysOfWeek", DayOfWeek.values());
-        model.addAttribute("instructores", instructorRepo.findAll());
+        model.addAttribute("instructores", instructorRepo.findAll().stream()
+                .sorted(Comparator.comparing(InstructorEntity::getNombre, String.CASE_INSENSITIVE_ORDER))
+                .collect(Collectors.toList()));
+        model.addAttribute("clasesAsignacion", classRepo.findAll().stream()
+                .sorted(Comparator.comparing(ClassEntity::getNombre, String.CASE_INSENSITIVE_ORDER))
+                .collect(Collectors.toList()));
         return "admin/horarios";
     }
 
     @GetMapping("/clases/new")
     @Operation(summary = "Formulario nueva clase")
     public String nuevaClase(Model model) {
+        syncInstructorsFromUsers();
         model.addAttribute("clase", new ClassEntity());
         model.addAttribute("niveles", Nivel.values());
         model.addAttribute("daysOfWeek", DayOfWeek.values());
@@ -282,6 +290,7 @@ public class AdminController {
     public String editarClase(@PathVariable Long id, Model model) {
         ClassEntity clase = classRepo.findById(id).orElse(null);
         if (clase == null) return "redirect:/admin/clases";
+        syncInstructorsFromUsers();
         model.addAttribute("clase", clase);
         model.addAttribute("niveles", Nivel.values());
         model.addAttribute("daysOfWeek", DayOfWeek.values());
@@ -315,6 +324,35 @@ public class AdminController {
     public String eliminarClase(@PathVariable Long id) {
         classRepo.deleteById(id);
         return "redirect:/admin/clases";
+    }
+
+    /**
+     * Crea registros de Instructor a partir de usuarios con rol INSTRUCTOR que aún no tienen ficha.
+     */
+    private void syncInstructorsFromUsers() {
+        var existingIds = instructorRepo.findAll().stream()
+                .map(InstructorEntity::getIdentificacion)
+                .filter(id -> id != null && !id.isBlank())
+                .collect(Collectors.toSet());
+
+        userRepo.findAll().stream()
+                .filter(u -> u.getRole() == Role.INSTRUCTOR)
+                .filter(u -> u.getUsername() != null && !u.getUsername().isBlank())
+                .filter(u -> !existingIds.contains(u.getUsername()))
+                .forEach(u -> {
+                    InstructorEntity nuevo = InstructorEntity.builder()
+                            .identificacion(u.getUsername())
+                            .nombre(u.getUsername())
+                            .correo(u.getUsername().contains("@") ? u.getUsername() : u.getUsername() + "@demo.com")
+                            .telefono("0000000000")
+                            .direccion("")
+                            .especialidad("")
+                            .genero(Genero.OTRO)
+                            .fechaNacimiento(LocalDate.now())
+                            .build();
+                    instructorRepo.save(nuevo);
+                    existingIds.add(nuevo.getIdentificacion());
+                });
     }
 
     // Pagos
@@ -374,6 +412,32 @@ public class AdminController {
     public String eliminarPago(@PathVariable Long id) {
         paymentRepo.deleteById(id);
         return "redirect:/admin/pagos";
+    }
+
+    @PostMapping("/clases/{id}/asignar-instructor")
+    @Operation(summary = "Asignar instructor a clase")
+    public String asignarInstructor(@PathVariable Long id, @RequestParam Long instructorId) {
+        var claseOpt = classRepo.findById(id);
+        var instOpt = instructorRepo.findById(instructorId);
+        if (claseOpt.isPresent() && instOpt.isPresent()) {
+            ClassEntity clase = claseOpt.get();
+            clase.setInstructor(instOpt.get());
+            classRepo.save(clase);
+        }
+        return "redirect:/admin/horarios#clase-" + id;
+    }
+
+    @PostMapping("/clases/asignar-instructor")
+    @Operation(summary = "Asignar instructor a clase (desde selector)")
+    public String asignarInstructorSimple(@RequestParam Long claseId, @RequestParam Long instructorId) {
+        var claseOpt = classRepo.findById(claseId);
+        var instOpt = instructorRepo.findById(instructorId);
+        if (claseOpt.isPresent() && instOpt.isPresent()) {
+            ClassEntity clase = claseOpt.get();
+            clase.setInstructor(instOpt.get());
+            classRepo.save(clase);
+        }
+        return "redirect:/admin/horarios#asignacion";
     }
 
     // Usuarios

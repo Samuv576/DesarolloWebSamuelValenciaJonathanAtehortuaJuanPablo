@@ -49,6 +49,7 @@
                     <li class="mb-1 mt-2" sec:authorize="hasRole('ADMINISTRADOR')"><span class="fw-bold text-white">Admin</span></li>
                     <li sec:authorize="hasRole('ADMINISTRADOR')"><a th:href="@{/admin/estudiantes}" class="text-decoration-none footer-link">Estudiantes</a></li>
                     <li sec:authorize="hasRole('ADMINISTRADOR')"><a th:href="@{/admin/horarios}" class="text-decoration-none footer-link">Horarios</a></li>
+                    <li sec:authorize="hasRole('ADMINISTRADOR')"><a th:href="@{/admin/horarios} + '#asignacion'" class="text-decoration-none footer-link">Asignar cursos a instructores</a></li>
                     <li sec:authorize="hasRole('ADMINISTRADOR')"><a th:href="@{/admin/pagos}" class="text-decoration-none footer-link">Pagos</a></li>
                     <li sec:authorize="hasRole('ADMINISTRADOR')"><a th:href="@{/admin/instructores}" class="text-decoration-none footer-link">Instructores</a></li>
                     <li sec:authorize="hasRole('ADMINISTRADOR')"><a th:href="@{/admin/empleados}" class="text-decoration-none footer-link">Empleados</a></li>

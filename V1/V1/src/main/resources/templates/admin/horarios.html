@@ -74,6 +74,38 @@
             </div>
         </div>
     </div>
+
+    <div class="row justify-content-center mt-5" id="asignacion">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 bg-white text-dark">
+                <div class="card-header bg-primary text-white fw-bold h5">
+                    Asignar instructor a una clase
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/admin/clases/asignar-instructor}" method="post" class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Clase</label>
+                            <select class="form-select" name="claseId" required>
+                                <option value="" disabled selected>Seleccione</option>
+                                <option th:each="c : ${clasesAsignacion}" th:value="${c.id}" th:text="${c.nombre}"></option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Instructor</label>
+                            <select class="form-select" name="instructorId" required>
+                                <option value="" disabled selected>Seleccione</option>
+                                <option th:each="inst : ${instructores}" th:value="${inst.id}" th:text="${inst.nombre}"></option>
+                            </select>
+                        </div>
+                        <div class="col-12 d-flex justify-content-end gap-2 mt-2">
+                            <button class="btn btn-outline-secondary" type="reset">Limpiar</button>
+                            <button class="btn btn-primary" type="submit">Asignar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </th:block>
 </html>
